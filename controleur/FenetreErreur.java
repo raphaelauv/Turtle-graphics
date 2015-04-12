@@ -16,11 +16,11 @@ public class FenetreErreur {
 		if(this.fenetre==null){
 			System.out.println(texte);
 			System.out.println("########################");
-			System.out.println("la fenetre JFame pour les erreurs est inactive");
+			System.out.println("La fenetre JFame pour les erreurs est inactive");
 		}
 		else{
 		 JOptionPane.showMessageDialog(fenetre,
-    			 "Fichier imcompatible","ERREUR",JOptionPane.WARNING_MESSAGE);
+    			 texte,"ERREUR",JOptionPane.WARNING_MESSAGE);
 		}
 	}
 }

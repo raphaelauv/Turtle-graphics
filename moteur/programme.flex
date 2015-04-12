@@ -34,6 +34,7 @@ variable = [a-zA-Z][a-zA-Z0-9]*
    {int}	      {return  intToken(Sym.INT,yyline, yycolumn, Integer.parseInt(yytext()));}
    "Var"      {return  token(Sym.VAR,yyline, yycolumn);}
    "Couleur"       {return  token(Sym.COULEUR,yyline, yycolumn);}
+   "Epaisseur"       {return  token(Sym.EPAISSEUR,yyline, yycolumn);}
    "FOR"       {return  token(Sym.FOR,yyline, yycolumn);}
    "Faire"     {return  token(Sym.FAIRE,yyline, yycolumn);}
    "PRINT"     {return  token(Sym.PRINT,yyline, yycolumn);}

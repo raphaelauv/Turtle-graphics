@@ -32,15 +32,15 @@ public class FichierCharger implements ActionListener {
          if (file == null) {
         	 JOptionPane.showMessageDialog(fenetre,
         			 "Aucun fichier charger","ATTENTION",JOptionPane.WARNING_MESSAGE);
+        	 return;
          }
          FileReader reader = null;
          try {
              reader = new FileReader(file);
              
-         } catch (FileNotFoundException ex) {
-        	 ex.printStackTrace();
+         } catch (Exception ex) {
         	 JOptionPane.showMessageDialog(fenetre,
-        			 "Fichier   imcompatible","ERREUR",JOptionPane.WARNING_MESSAGE);
+        			 "Fichier  non trouve","ERREUR",JOptionPane.WARNING_MESSAGE);
          }
          try{
         	 ((Fenetre) this.fenetre).dessiner(reader);

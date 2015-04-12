@@ -48,7 +48,7 @@ class Parser {
     }
 
 	public Program nontermProg() throws Exception {
-		if (reader.check(Sym.DEBUT) || reader.check(Sym.SI)
+		if (reader.check(Sym.DEBUT) || reader.check(Sym.SI) || reader.check(Sym.EPAISSEUR)
 				|| reader.check(Sym.TANTQUE) || reader.check(Sym.FAIRE)
 				|| reader.check(Sym.AVANCE) || reader.check(Sym.BASPINCEAU)
 				|| reader.check(Sym.HAUTPINCEAU) || reader.check(Sym.VARIABLE)
@@ -101,11 +101,18 @@ class Parser {
         	//reader.eat(Sym.LACC);
         	
         	Instruction ex2 =this.nontermInst();
-        	
         	//reader.eat(Sym.RACC);
         	
         	return new Loop(ex ,ex2);
-        }  
+        } 
+        else if(reader.check(Sym.FAIRE)){
+        	reader.eat(Sym.FAIRE);
+        	Instruction ex2 =this.nontermInst();
+        	reader.eat(Sym.TANTQUE);
+        	Expression ex = this.nontermExp();
+        	
+        	return new FaireTantQue(ex,ex2);
+        }
         else if (reader.check(Sym.TANTQUE)) {
         	
         	reader.eat(Sym.TANTQUE);
@@ -183,6 +190,19 @@ class Parser {
         	throw new LexerException(reader.getLine(), reader.getColumn(), "erreur de choix de couleur "+
         	"choissisez parmis  \n"+Couleurs.liste());
         			
+        }
+        else if(reader.check(Sym.EPAISSEUR)){
+        	reader.eat(Sym.EPAISSEUR);
+        	
+        	if (!reader.check(Sym.VARIABLE) || reader.check(Sym.INT) || reader.check(Sym.LPAR)){
+        		throw new LexerException(reader.getLine(), reader.getColumn(), "attention il faut seulement un espace entre "
+        				+ "EPAISSEUR et la valeur de l epaisseur \n et non pas un "+reader.getStringSym());
+        	
+        	}
+        	Expression a=this.nontermExp();
+        	
+        	return new Epaisseur(a);
+        	
         }
         
         throw new LexerException(reader.getLine(), reader.getColumn(), "LEXER exception , a ete trouve :  "

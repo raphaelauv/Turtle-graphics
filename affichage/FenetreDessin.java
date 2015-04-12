@@ -42,9 +42,9 @@ public class FenetreDessin extends JPanel {
 		for(Trait adessiner : listeDesTraits){
 			if(adessiner!=null && pinceauBas && adessiner.visible){
 				
+				
 				Graphics2D g2d = (Graphics2D)g;
 				//System.out.println(adessiner.couleur);
-				
 				Color tmp=new Color(0);
 				try {
 					
@@ -52,20 +52,13 @@ public class FenetreDessin extends JPanel {
 					//System.out.println("field" +field.toString());
 					tmp = (Color) field.get(tmp);
 					
-				} catch (NoSuchFieldException | SecurityException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
 				g2d.setColor(tmp);
 		        g2d.setStroke(new BasicStroke(adessiner.epaisseur));
-		        g2d.draw(new Line2D.Float(adessiner.debut.x, adessiner.debut.y, adessiner.fin.x, adessiner.fin.y));
+		        g2d.draw(new Line2D.Float(adessiner.debut.x, this.getHeight()-adessiner.debut.y, adessiner.fin.x, this.getHeight()-adessiner.fin.y));
 			}
 		}
 		}

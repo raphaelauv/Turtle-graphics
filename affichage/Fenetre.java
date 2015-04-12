@@ -28,6 +28,10 @@ import moteur.Moteur;
 
 public class Fenetre extends JFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3999136127647667839L;
 	Moteur moteur;
 	FenetreDessin fenetreDessin;
 	FenetreTortue fenetreTortue;

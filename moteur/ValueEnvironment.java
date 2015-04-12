@@ -40,7 +40,7 @@ public class ValueEnvironment extends HashMap<String, Integer> {
 		super();
 		this.valPinceau=false;
 		this.angleActuel=90;
-		this.couleur="NOIR";
+		this.couleur="BLACK";
 		this.setTaille(10);
 		this.setPositionActuel(new Point(0,0));
 	}

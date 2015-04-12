@@ -1,29 +1,49 @@
 package moteur;
 
 public enum Sym {
-    LPAR,
-    RPAR,
-    LACC,
-    RACC,
-    INT,
-    VARIABLE,
-    PRINT,
-    FOR,
-    VAR,
-    EQ,
-    AVANCE,
-    BASPINCEAU,
-    COULEUR,
-    HAUTPINCEAU,
+	
+	//#### SEMANTIQUE ####
+	CONCAT, // point virgule
     DEBUT,
     FIN,
+    EOF, // end of file
+    
+	//#### VARIABLES ####
+	VAR,
+	VARIABLE,
+	EQ,
+	
+	//#### EXPRESSIONS ####
+	INT,
+    LPAR, // parenthese gauche
+    RPAR, // parenthese droite
+    LACC, // accolade gauche
+    RACC, //  accolade droite
+    
+    //#### OPERATEURS ####
+    PLUS, // addition
+    MINUS, // soustraction
+    TIMES, //multiplication
+    DIV, //division
+    
+    //#### BOUCLES ####
+    FOR,
+    TANTQUE, // while
+    FAIRE, // do
+    
+    //#### DESSIN ####
+    EPAISSEUR,
     TOURNE,
-   	CONCAT, 
-    PLUS,
-    MINUS,
-    TIMES,
-    DIV,
-    ALORS,
-    SINON,
-    EOF, SI, TANTQUE,FAIRE;  //token representinting the end of file
+    AVANCE,
+    BASPINCEAU,
+    HAUTPINCEAU,
+    COULEUR,
+    PRINT,
+    
+    //#### CONDITIONNELLES ####
+    SI, //if
+    ALORS, // then
+    SINON, // else
+    ALORSSI; // elseif
+	
 }
