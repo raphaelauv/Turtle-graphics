@@ -2,21 +2,16 @@ package affichage;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.geom.Line2D;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 
-import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
+
 import javax.swing.JPanel;
 
-public class FenetreDessin extends JPanel {
+public class FenetreDessin extends JPanel implements Nettoyer {
 	
 
 	private LinkedList<Trait> listeDesTraits = new LinkedList<Trait>();
@@ -61,7 +56,7 @@ public class FenetreDessin extends JPanel {
 		        g2d.draw(new Line2D.Float(adessiner.debut.x, this.getHeight()-adessiner.debut.y, adessiner.fin.x, this.getHeight()-adessiner.fin.y));
 			}
 		}
-		}
+	}
 
 	public boolean isPinceauBas() {
 		return pinceauBas;

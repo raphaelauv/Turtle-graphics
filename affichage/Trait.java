@@ -24,16 +24,24 @@ public class Trait {
 			System.out.println("ERREUR d'angle");
 		}
 		
-		System.out.println("angle : "+angle);
+		/*System.out.println("angle : "+angle);
 		System.out.println("taille : "+taille);
 		System.out.println("epaisseur : "+epaisseur);
 		System.out.println("couleur : "+couleur);
 		System.out.println("point de debut : "+debut);
+		*/
 		this.fin=new Point();
 		this.fin.x=(int) (debut.x+taille*Math.cos(Math.toRadians(angle)));
 		this.fin.y=(int) (debut.y+taille*Math.sin(Math.toRadians(angle)));
 		
-		System.out.println("point de fin "+fin);
+		//System.out.println("point de fin "+fin);
+	}
+
+	@Override
+	public String toString() {
+		return "Trait [taille=" + taille + ", epaisseur=" + epaisseur
+				+ ", couleur=" + couleur + ", debut=" + debut + ", fin=" + fin
+				+ ", angle=" + angle + ", visible=" + visible + "]";
 	}
 
 	public Point getFin() {

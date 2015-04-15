@@ -1,5 +1,30 @@
 package moteur;
 
+import moteur.expression.Difference;
+import moteur.expression.Division;
+import moteur.expression.Expression;
+import moteur.expression.Int;
+import moteur.expression.Product;
+import moteur.expression.Program;
+import moteur.expression.ProgramPrincipal;
+import moteur.expression.Sum;
+import moteur.expression.Var;
+import moteur.instruction.Assignment;
+import moteur.instruction.Avance;
+import moteur.instruction.BasPinceau;
+import moteur.instruction.ChangeCouleur;
+import moteur.instruction.Debut;
+import moteur.instruction.Declaration;
+import moteur.instruction.Epaisseur;
+import moteur.instruction.FaireTantQue;
+import moteur.instruction.HautPinceau;
+import moteur.instruction.Instruction;
+import moteur.instruction.SiALors;
+import moteur.instruction.SiALorsSinon;
+import moteur.instruction.SinonSiAlors;
+import moteur.instruction.SinonSiAlorsSinon;
+import moteur.instruction.TantQue;
+import moteur.instruction.Tourne;
 
 class Parser {
 	/*
@@ -49,6 +74,7 @@ class Parser {
 
 	public Program nontermProg() throws Exception {
 		if (reader.check(Sym.DEBUT) || reader.check(Sym.SI) || reader.check(Sym.EPAISSEUR)
+				|| reader.check(Sym.SINONSI)
 				|| reader.check(Sym.TANTQUE) || reader.check(Sym.FAIRE)
 				|| reader.check(Sym.AVANCE) || reader.check(Sym.BASPINCEAU)
 				|| reader.check(Sym.HAUTPINCEAU) || reader.check(Sym.VARIABLE)
@@ -64,10 +90,7 @@ class Parser {
 		}
 		return new Program(null, null);
 	}
-    
- 
-    	
-
+	
     public Instruction nontermInst()
     throws Exception {
     	
@@ -80,7 +103,6 @@ class Parser {
     	}
         if (reader.check(Sym.VARIABLE)) {
         	
-        	
         	String nomVariable=reader.getStringValue();
         	
         	reader.eat(Sym.VARIABLE);
@@ -91,20 +113,7 @@ class Parser {
         	
         	return new Assignment(nomVariable, ex);
         }
-        else if (reader.check(Sym.FOR)) {
-        	
-        	reader.eat(Sym.FOR);
-        	Expression ex = this.nontermExp();
-        	
-        	reader.eat(Sym.FAIRE);
-        	
-        	//reader.eat(Sym.LACC);
-        	
-        	Instruction ex2 =this.nontermInst();
-        	//reader.eat(Sym.RACC);
-        	
-        	return new Loop(ex ,ex2);
-        } 
+        
         else if(reader.check(Sym.FAIRE)){
         	reader.eat(Sym.FAIRE);
         	Instruction ex2 =this.nontermInst();
@@ -148,25 +157,6 @@ class Parser {
         	
         	return new Avance(a);
         }
-        else if (reader.check(Sym.SI)) {
-        	
-        	reader.eat(Sym.SI);
-        	Expression ex=this.nontermExp();
-        	reader.eat(Sym.ALORS);
-        	Instruction ex2 =this.nontermInst();
-        	
-        	if(reader.check(Sym.SINON)){
-            	reader.eat(Sym.SINON);
-            	Instruction ex3 =this.nontermInst();
-            	
-            	return new SiALorsSinon(ex,ex2,ex3);
-        	}
-        	else{
-        		return new SiALors(ex,ex2);
-        	}
-        	
-        }
-        
         
         else if (reader.check(Sym.COULEUR)) {
         	
@@ -204,11 +194,53 @@ class Parser {
         	return new Epaisseur(a);
         	
         }
+        else if (reader.check(Sym.SI)) {
+        	reader.eat(Sym.SI);
+        	Expression ex=this.nontermExp();
+        	reader.eat(Sym.ALORS);
+        	Instruction ex2 =this.nontermInst();
+        	
+        	if(reader.check(Sym.SINON)){
+            	reader.eat(Sym.SINON);
+            	Instruction ex3 =this.nontermInst();
+            	return new SiALorsSinon(ex,ex2,ex3);
+        	}
+        	else if(reader.check(Sym.SINONSI)){
+        		return new SiALorsSinon(ex,ex2,this.nontermInst());
+        	}
+        	else{
+        		return new SiALors(ex,ex2);
+        	}
+        	
+        }
         
+        else if (reader.check(Sym.SINONSI)) {
+        	reader.eat(Sym.SINONSI);
+        	Expression ex=this.nontermExp();
+        	reader.eat(Sym.ALORS);
+        	Instruction ex2 =this.nontermInst();
+        	return nontermSinonSi(ex,ex2);
+        } 
         throw new LexerException(reader.getLine(), reader.getColumn(), "LEXER exception , a ete trouve :  "
         +reader.getStringSym()+"   \n , etait attendu une instruction etait attendu");
     }
 
+
+    
+    public Instruction nontermSinonSi(Expression ex , Instruction ex2) throws Exception{
+    	if(reader.check(Sym.SINON)){
+        	reader.eat(Sym.SINON);
+        	Instruction ex3 =this.nontermInst();
+        	return new SinonSiAlorsSinon(ex,ex2,ex3);
+    	}
+    	else if(reader.check(Sym.SINONSI)){
+    		return new SinonSiAlors(ex,ex2,this.nontermInst());
+    	}
+    	else{
+    		return new SinonSiAlors(ex,ex2,null);
+    	}
+    }
+    
     public Expression nontermExp() throws Exception {
 		
     	if (reader.check(Sym.INT)) {
@@ -223,10 +255,11 @@ class Parser {
     	else if (reader.check(Sym.VARIABLE)){
     		
     		String val=reader.getStringValue();
-			
+    		String position ="ligne : "+reader.getLine()+"  cologne : "+reader.getColumn();
+			 
 			reader.eat(Sym.VARIABLE);
 			
-			return this.nonTermExpSuite(new Var(val));
+			return this.nonTermExpSuite(new Var(val,position));
     		
     	}
 		else if (reader.check(Sym.LPAR)){

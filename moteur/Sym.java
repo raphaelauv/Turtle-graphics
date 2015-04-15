@@ -44,6 +44,6 @@ public enum Sym {
     SI, //if
     ALORS, // then
     SINON, // else
-    ALORSSI; // elseif
+    SINONSI; // elseif
 	
 }

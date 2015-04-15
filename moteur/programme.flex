@@ -42,6 +42,7 @@ variable = [a-zA-Z][a-zA-Z0-9]*
    "Si"	{return  token(Sym.SI,yyline, yycolumn);}
    "Alors"	{return  token(Sym.ALORS,yyline, yycolumn);}
    "Sinon"	{return  token(Sym.SINON,yyline, yycolumn);}
+   "Sinon si"	{return  token(Sym.SINONSI,yyline, yycolumn);}
    "Tant que"	{return  token(Sym.TANTQUE,yyline, yycolumn);}
    "Tourne"		{return  token(Sym.TOURNE,yyline, yycolumn);}
    "BasPinceau"		{return  token(Sym.BASPINCEAU,yyline, yycolumn);}

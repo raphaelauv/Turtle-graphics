@@ -14,7 +14,7 @@ public class ValueEnvironment extends HashMap<String, Integer> {
 	private int taille;
 	private int angleActuel;
 	private boolean valPinceau;
-	
+	private boolean modeSansFENETRE;
 	
 	public boolean isValPinceau() {
 		return valPinceau;
@@ -38,6 +38,7 @@ public class ValueEnvironment extends HashMap<String, Integer> {
 	public ValueEnvironment() {
 		
 		super();
+		this.setModeSansFENETRE(false);
 		this.valPinceau=false;
 		this.angleActuel=90;
 		this.couleur="BLACK";
@@ -52,9 +53,7 @@ public class ValueEnvironment extends HashMap<String, Integer> {
 	throws Exception {
 		this.put(name, value);
 	}
-	public int getValue(String name) 
-	throws Exception {
-		
+	public Integer getValue(String name){
 		return this.get(name);
 	}
 	public String getCouleur() {
@@ -77,7 +76,10 @@ public class ValueEnvironment extends HashMap<String, Integer> {
 	}
 	public void setValPinceau(boolean descendre) {
 		this.valPinceau=descendre;
-		this.pinceau.action(descendre);
+		
+		if(this.pinceau!=null){
+			this.pinceau.action(descendre);
+		}
 	}
 	public int getTaille() {
 		return taille;
@@ -90,6 +92,12 @@ public class ValueEnvironment extends HashMap<String, Integer> {
 	}
 	public void setAngleActuel(int angleActuel) {
 		this.angleActuel = angleActuel;
+	}
+	public boolean isModeSansFENETRE() {
+		return modeSansFENETRE;
+	}
+	public void setModeSansFENETRE(boolean modeSansFENETRE) {
+		this.modeSansFENETRE = modeSansFENETRE;
 	}
 	
 }

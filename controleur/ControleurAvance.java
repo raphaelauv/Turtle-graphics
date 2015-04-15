@@ -1,8 +1,8 @@
 package controleur;
 
 
-import moteur.Expression;
 import moteur.ValueEnvironment;
+import moteur.expression.Expression;
 import affichage.Fenetre;
 import affichage.Trait;
 
@@ -15,7 +15,9 @@ public class ControleurAvance{
 	}
 	
 	public void action(Trait tmp){
-		fenetre.dessinerAvance(tmp);
+		if(fenetre !=null){
+			fenetre.dessinerAvance(tmp);
+		}	
 	}
 	
 	public Fenetre getFenetre() {

@@ -2,6 +2,7 @@ package moteur;
 
 import java.io.Reader;
 
+import moteur.expression.ProgramPrincipal;
 import controleur.ControleurAvance;
 import controleur.ControleurListeToken;
 import controleur.ControleurPinceau;
@@ -64,4 +65,29 @@ public class Moteur {
 	public void setFenetreErreur(FenetreErreur fenetreErreur) {
 		this.fenetreErreur=fenetreErreur;
 	}
+	
+	public String getString(){
+		return ProgramPrincipal.getString(listeVariable,2);
+	}
+	
+	public String getFirstString(String nomClasse) throws Exception{
+		return ProgramPrincipal.getFistString(nomClasse);
+	}
+	
+	public String getLastString(){
+		return ProgramPrincipal.getLastString();
+	}
+	public static String stringRepeat(String chaine, int multiplicateur){
+		if (multiplicateur > 1) {
+			String tmp=chaine;
+			String tmp2 = chaine;
+			for (int i = 1; i < multiplicateur; i++) {
+				tmp = tmp.concat(tmp2);
+			}
+			return tmp;
+		} else  {
+			return chaine;
+		}
+	}
+	
 }
