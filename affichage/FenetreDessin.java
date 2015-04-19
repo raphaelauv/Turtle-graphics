@@ -36,8 +36,6 @@ public class FenetreDessin extends JPanel implements Nettoyer {
 		
 		for(Trait adessiner : listeDesTraits){
 			if(adessiner!=null && pinceauBas && adessiner.visible){
-				
-				
 				Graphics2D g2d = (Graphics2D)g;
 				//System.out.println(adessiner.couleur);
 				Color tmp=new Color(0);

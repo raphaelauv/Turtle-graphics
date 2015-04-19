@@ -4,6 +4,7 @@ import moteur.ValueEnvironment;
 import moteur.expression.Program;
 
 public class Debut extends Instruction {
+	protected Program bloc;
 	public Debut(Program lebloc) {
 		this.bloc=lebloc;
 	}
@@ -17,7 +18,6 @@ public class Debut extends Instruction {
 	
 	public String getString(ValueEnvironment env,int tabulation) {
 		return this.bloc.getString(env,tabulation);
-		
 	}
 	
 }

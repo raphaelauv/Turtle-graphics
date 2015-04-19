@@ -16,7 +16,7 @@ public class ChangeCouleur extends Instruction{
 	public String getString(ValueEnvironment env, int tabulation) {
 		String tmp=Moteur.stringRepeat("\t", tabulation);
 		
-		return "new ChangeCouleur(\""+couleur+"\").exec(listeVariable);";
+		return "new ChangeCouleur(\""+couleur+"\").exec("+env.getNom()+");";
 		
 	}
 }

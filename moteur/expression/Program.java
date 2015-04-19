@@ -16,16 +16,22 @@ public class Program {
 	throws Exception {		
 		if (first != null) {
 			first.exec(env);
+		}
+		if(rest!=null){
 			rest.run(env);
 		}
 	}
 	public String getString(ValueEnvironment env, int tabulation) {
+		String tmp2=Moteur.stringRepeat("\t", tabulation);
+		String tmp="\n";
 		if (first != null) {
-			String tmp2=Moteur.stringRepeat("\t", tabulation);
-			return tmp2+first.getString(env,tabulation)+"\n"+rest.getString(env,tabulation);
-			
+			tmp=tmp+tmp2+first.getString(env,tabulation);
 		}
-		return "";
+		if(rest!=null){
+			tmp=tmp+rest.getString(env, tabulation);
+		}
+		
+		return tmp;
 		
 	}
 }

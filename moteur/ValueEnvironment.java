@@ -15,6 +15,7 @@ public class ValueEnvironment extends HashMap<String, Integer> {
 	private int angleActuel;
 	private boolean valPinceau;
 	private boolean modeSansFENETRE;
+	private String nom;
 	
 	public boolean isValPinceau() {
 		return valPinceau;
@@ -98,6 +99,12 @@ public class ValueEnvironment extends HashMap<String, Integer> {
 	}
 	public void setModeSansFENETRE(boolean modeSansFENETRE) {
 		this.modeSansFENETRE = modeSansFENETRE;
+	}
+	public String getNom() {
+		return nom;
+	}
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 	
 }

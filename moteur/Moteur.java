@@ -21,6 +21,7 @@ public class Moteur {
 		lexer = new Lexer(reader);
         look = new LookAhead1(lexer);
         parser = new Parser(look);
+        
 	}
 
 	public void analyseSynt() throws Exception{

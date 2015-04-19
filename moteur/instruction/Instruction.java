@@ -9,7 +9,6 @@ import moteur.expression.Program;
 import affichage.Trait;
 
 public abstract class Instruction {
-	protected Program bloc;
 	private Expression exp;
 	public abstract void exec(ValueEnvironment env)throws Exception;
 	public abstract String getString(ValueEnvironment env , int tabulation);

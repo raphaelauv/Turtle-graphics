@@ -4,30 +4,25 @@ import moteur.Moteur;
 import moteur.ValueEnvironment;
 import moteur.instruction.Instruction;
 
-public class ProgramPrincipal extends Program{
+public class ProgramPrincipal{
 	
-	public ProgramPrincipal(Program p, Instruction i) {
-		super(i,p);
+	public Instruction i;
+	public ProgramPrincipal(Instruction instruction) {
+		this.i=instruction;
 	}
 	public void run(ValueEnvironment env) throws Exception{
-		if(super.rest!=null){
-			super.rest.run(env);
-		}
-		if(super.first !=null){
-			super.first.exec(env);
+		if(i!=null){
+			i.exec(env);
 		}
 	}
 	public String getString(ValueEnvironment env, int tabulation) {
 		String tmp2=Moteur.stringRepeat("\t", tabulation);
-		String tmp="\n"+tmp2;
-		if (super.rest != null) {
-			tmp="\n"+super.rest.getString(env,tabulation);
-		}
-		else{
-			tmp=tmp+"null,";
-		}
-		if(super.first!=null){
-			tmp=tmp+super.first.getString(env,tabulation);
+		String tmp="\n"+tmp2+"ValueEnvironment listeVariable = new ValueEnvironment();"
+				+ "\n"+tmp2+"listeVariable.setModeSansFENETRE(true);"
+				+"\n"+tmp2;
+		env.setNom("listeVariable");
+		if (this.i != null) {
+			tmp=tmp+"\n"+this.i.getString(env,tabulation);
 		}
 		else{
 			tmp=tmp+"null";
@@ -45,9 +40,7 @@ public class ProgramPrincipal extends Program{
 				+ "import moteur.instruction.BasPinceau;\n"
 				+ "import moteur.instruction.ChangeCouleur;\n"
 				+ "import moteur.instruction.Tourne;\n"
-				+ "class "+nameClass+"{\n \tpublic static void main(String[] args) throws Exception {\n"
-				+ "\t\tValueEnvironment listeVariable = new ValueEnvironment();"
-				+ "\n\t\tlisteVariable.setModeSansFENETRE(true);"
+				+ "public class "+nameClass+"{\n \tpublic static void main(String[] args) throws Exception {\n"
 		;
 		return tmp;
 

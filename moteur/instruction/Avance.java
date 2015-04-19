@@ -38,7 +38,7 @@ public class Avance extends Instruction {
 				+ "listeVariable.getPositionActuel(),"
 				+ "listeVariable.getAngleActuel(),"
 				+ "listeVariable.isValPinceau()"*/
-				+ ".exec(listeVariable);";
+				+ ".exec("+env.getNom()+");";
 		return tmp;
 	}
 	

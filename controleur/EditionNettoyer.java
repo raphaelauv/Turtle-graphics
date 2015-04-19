@@ -21,10 +21,8 @@ public class EditionNettoyer implements ActionListener{
 		if(controleurListeToken!=null){
 			controleurListeToken.nettoyer();
 		}
-		
 		if(controleurProgJava!=null){
 			controleurProgJava.nettoyer();
 		}
 	}
-
 }

@@ -14,7 +14,14 @@ public class Assignment extends Instruction {
 	public void exec(ValueEnvironment env)
 	throws Exception {
 		
+		if(varName==null || exp==null){
+			return;
+		}
 		int valeur=getExp().eval(env);
+		
+		if(!env.containsKey(varName)){
+			throw new Exception("la variable "+varName +" n a pas ete declarer avant son initialisation");
+		}
     	env.setVariable(varName,valeur);
 	}
 	
