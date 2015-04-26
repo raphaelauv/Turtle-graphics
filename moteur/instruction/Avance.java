@@ -5,14 +5,14 @@ import moteur.expression.Int;
 import affichage.Trait;
 
 public class Avance extends Instruction {
+	
 	public Avance(Expression e) {
 		this.setExp(e);
 	}
 	public Avance(int i) {
 		this.setExp(new Int(i));
 	}
-	public void exec(ValueEnvironment env)
-	throws Exception {
+	public void exec(ValueEnvironment env)throws Exception {
 		
 		Trait tmp = new Trait(this.getExp().eval(env), env.getTaille(),
 				env.getCouleur(), env.getPositionActuel(),
@@ -41,7 +41,4 @@ public class Avance extends Instruction {
 				+ ".exec("+env.getNom()+");";
 		return tmp;
 	}
-	
-	
-	
 }

@@ -1,5 +1,6 @@
 package moteur.instruction;
 
+import moteur.Moteur;
 import moteur.ValueEnvironment;
 import moteur.expression.Program;
 
@@ -17,7 +18,8 @@ public class Debut extends Instruction {
 	}
 	
 	public String getString(ValueEnvironment env,int tabulation) {
-		return this.bloc.getString(env,tabulation);
+		String tmp=Moteur.stringRepeat("\t", tabulation);
+		return "//Debut"+this.bloc.getString(env,tabulation)+tmp+"//Fin\n";
 	}
 	
 }

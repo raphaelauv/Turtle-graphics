@@ -24,7 +24,7 @@ public class SiALorsSinon extends SiALors {
 		
 		//String tmp2=super.getString(env, tabulation);
 		
-		String tmp2="if("+this.getExp().getString(env,0)+"!=0){\n\t"+tmp+this.getInstruction().getString(env,tabulation)+"\n"+tmp+"}";
+		String tmp2="if("+this.getExp().getString(env,0)+"!=0){\n\t"+tmp+this.getInstruction().getString(env,tabulation+1)+"\n"+tmp+"}";
 		
 		if(instruction3 instanceof SinonSiAlors || instruction3 instanceof SinonSiAlorsSinon ){
 			

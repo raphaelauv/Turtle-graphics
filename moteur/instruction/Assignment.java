@@ -31,6 +31,10 @@ public class Assignment extends Instruction {
 		return tmp;
 	}
 	
+	public String getStringSimple(ValueEnvironment env, int tabulation){
+		return exp.getString(env,tabulation) +";";
+	}
+	
 	public Expression getExp() {
 		return exp;
 	}

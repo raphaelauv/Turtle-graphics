@@ -1,12 +1,8 @@
 package moteur.instruction;
 
 
-import moteur.Moteur;
 import moteur.ValueEnvironment;
 import moteur.expression.Expression;
-import moteur.expression.Int;
-import moteur.expression.Program;
-import affichage.Trait;
 
 public abstract class Instruction {
 	private Expression exp;

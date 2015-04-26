@@ -7,6 +7,8 @@ import moteur.instruction.Instruction;
 public class ProgramPrincipal{
 	
 	public Instruction i;
+	
+
 	public ProgramPrincipal(Instruction instruction) {
 		this.i=instruction;
 	}
@@ -17,17 +19,16 @@ public class ProgramPrincipal{
 	}
 	public String getString(ValueEnvironment env, int tabulation) {
 		String tmp2=Moteur.stringRepeat("\t", tabulation);
-		String tmp="\n"+tmp2+"ValueEnvironment listeVariable = new ValueEnvironment();"
+		String tmp="\n"+tmp2+"ValueEnvironment listeVariable = new ValueEnvironment(false,90,\"BLACK\",1);"
 				+ "\n"+tmp2+"listeVariable.setModeSansFENETRE(true);"
 				+"\n"+tmp2;
 		env.setNom("listeVariable");
 		if (this.i != null) {
-			tmp=tmp+"\n"+this.i.getString(env,tabulation);
+			tmp=tmp+"\n"+tmp2+this.i.getString(env,tabulation);
+			return tmp;
+		}else{
+			return "";
 		}
-		else{
-			tmp=tmp+"null";
-		}
-		return tmp;
 	}
 	
 	public String getFistString(String nameClass) throws Exception {
@@ -40,13 +41,19 @@ public class ProgramPrincipal{
 				+ "import moteur.instruction.BasPinceau;\n"
 				+ "import moteur.instruction.ChangeCouleur;\n"
 				+ "import moteur.instruction.Tourne;\n"
-				+ "public class "+nameClass+"{\n \tpublic static void main(String[] args) throws Exception {\n"
+				+ "public class "+nameClass+"{\n\tpublic static void main(String[] args) throws Exception {\n"
 		;
 		return tmp;
 
 	}
 	public String getLastString(){
-		return ""+"\t}\n}";
+		return ""+"\n}";
 	}
 	
+	public Instruction getI() {
+		return i;
+	}
+	public void setI(Instruction i) {
+		this.i = i;
+	}
 }

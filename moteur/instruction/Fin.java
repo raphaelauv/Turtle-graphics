@@ -10,7 +10,7 @@ public class Fin extends Instruction {
 		//env.setVariable("Fin", 1);
 	}
 	public String getString(ValueEnvironment env, int tabulation) {
-		return "new Fin().exec(listeVariable);";
+		return "";
 		
 	}
 }

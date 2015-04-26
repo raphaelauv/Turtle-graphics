@@ -22,7 +22,7 @@ public class Loop extends Instruction {
 		}
 		
 		/*
-		for (int i =0 ; i<this.getExp().eval(env); i++){
+		for (int i =0 ; i<this.getExp().eval(env) ; i++){
 			this.getInstruction().exec(env);
 		}
 		*/
@@ -59,7 +59,7 @@ public class Loop extends Instruction {
 		String nomVariable="listeVariable".concat(""+val);
 		System.out.println(nomVariable);
 		env2.setNom(nomVariable);
-		return tmp3+"for"+ "( "+"int "+identi+" =0 ; "+identi+"<"+max+";"+identi+"++){\n\t"+tmp2+getInstruction().getString(env2,tabulation+1)+"\n"+tmp2+"}\n";
+		return tmp3+"for"+ "( "+"int "+identi+" =0 ; "+identi+"<"+max+" ; "+identi+"++){\n\t"+tmp2+getInstruction().getString(env2,tabulation+1)+"\n"+tmp2+"}\n";
 	}
 	
 	public Expression getExp() {

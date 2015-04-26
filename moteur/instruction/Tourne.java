@@ -25,6 +25,7 @@ public class Tourne extends Instruction {
 			resultat=360+resultat;
 		}
     	env.setAngleActuel(resultat);
+    	
 	}
 	
 	public String getString(ValueEnvironment env, int tabulation) {

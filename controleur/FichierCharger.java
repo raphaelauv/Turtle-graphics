@@ -8,52 +8,73 @@ import java.io.FileReader;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import affichage.Fenetre;
 
 public class FichierCharger implements ActionListener {
 
-	JFrame fenetre;
+	Fenetre fenetre;
 	
-	public FichierCharger(JFrame fenetre){
+	public FichierCharger(Fenetre fenetre){
 		this.fenetre=fenetre;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		
 		if (this.fenetre == null){
-			
+			return;
 		}
-		 JFileChooser chooser = new JFileChooser();
-		 chooser.showOpenDialog(chooser);
-         File file = chooser.getSelectedFile();
-         if (file == null) {
-        	 JOptionPane.showMessageDialog(fenetre,
-        			 "Aucun fichier charger","ATTENTION",JOptionPane.WARNING_MESSAGE);
-        	 return;
-         }
+		
+		File file=this.getFile("charger pseudo code",null);
+		
          FileReader reader = null;
          try {
              reader = new FileReader(file);
              
          } catch (Exception ex) {
+        	 /*
         	 JOptionPane.showMessageDialog(fenetre,
         			 "Fichier  non trouve","ERREUR",JOptionPane.WARNING_MESSAGE);
+        			*/
+        	 return;
          }
          try{
-        	 ((Fenetre) this.fenetre).dessiner(reader);
+        	 fenetre.setAfficherSortie(false);
+        	 ((Fenetre) this.fenetre).dessiner(reader,false);
         	 if (reader != null) {
                  try {
                      reader.close();
                  } catch (Exception x) {
-                	 x.printStackTrace();
+                	 //throw new Exception("Erreur a la fermeture du reader du fichier charger");
+                	 //x.printStackTrace();
+                	 
+                	 JOptionPane.showMessageDialog(fenetre,
+                			 x.getMessage(),"ERREUR",JOptionPane.WARNING_MESSAGE);
                  }
              }
          } catch (Exception ex) {
-        	 ex.printStackTrace();
+        	 //ex.printStackTrace();
+        	 JOptionPane.showMessageDialog(fenetre,
+        			 ex.getMessage(),"ERREUR",JOptionPane.WARNING_MESSAGE);
          }
-		
 	}
-
+	
+	protected File getFile(String nameofBox , String extension){
+		 JFileChooser chooser = new JFileChooser();
+		 chooser.setDialogTitle(nameofBox);
+		 if(extension!=null){
+			 FileNameExtensionFilter filter = new FileNameExtensionFilter(extension+" FILES", extension);
+			 chooser.setFileFilter(filter);
+		 }
+		 chooser.showOpenDialog(chooser);
+         File file = chooser.getSelectedFile();
+         if (file == null) {
+        	 /*
+        	 JOptionPane.showMessageDialog(fenetre,
+        			 "Aucun fichier charger","ATTENTION",JOptionPane.WARNING_MESSAGE);*/
+        	 return null;
+         }
+         return file;
+	}
 }

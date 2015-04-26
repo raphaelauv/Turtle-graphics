@@ -3,7 +3,6 @@ package moteur;
 import controleur.ControleurListeToken;
 
 
-
 class LookAhead1  {
     /* Simulating a reader class for a stream of Token */
     
@@ -11,20 +10,17 @@ class LookAhead1  {
     private Lexer lexer;
     private ControleurListeToken controleur;
 
-	public LookAhead1(Lexer l) 
-	throws Exception {
+	public LookAhead1(Lexer l) throws Exception {
 	lexer=l;
 	current=lexer.yylex();
     }
 
-    public boolean check(Sym s)
-	throws Exception {
+    public boolean check(Sym s){
 	/* check whether the first character is of type s*/
           return (current.symbol() == s); 
     }
-
-    public void eat(Sym s)
-	throws Exception {
+    
+    public void eat(Sym s)throws Exception {
 	/* consumes a token of type s from the stream,
 	   exception when the contents does not start on s.   */
     	
@@ -34,7 +30,6 @@ class LookAhead1  {
 		if(controleur!=null){
 			controleur.ajouterToken(current.toString());
 		}
-		
         current=lexer.yylex();
     }
     

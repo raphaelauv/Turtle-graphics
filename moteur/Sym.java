@@ -39,6 +39,7 @@ public enum Sym {
     HAUTPINCEAU,
     COULEUR,
     PRINT,
+    TAILLE,
     
     //#### CONDITIONNELLES ####
     SI, //if

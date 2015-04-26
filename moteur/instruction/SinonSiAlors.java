@@ -15,7 +15,7 @@ public class SinonSiAlors extends SiALorsSinon{
 		
 		//String tmp2=new SiALors(this.getExp(), this.getInstruction()).getString(env, tabulation);
 		
-		String tmp2="if("+this.getExp().getString(env,0)+"!=0){\n"+this.getInstruction().getString(env,tabulation+1)+"\n"+tmp+"}";
+		String tmp2="if("+this.getExp().getString(env,0)+"!=0){\n\t"+tmp+this.getInstruction().getString(env,tabulation+1)+"\n"+tmp+"}";
 		
 		if(this.instruction3 instanceof SinonSiAlors || this.instruction3 instanceof SinonSiAlorsSinon){
 			return tmp2+"\n"+tmp+"else "+this.instruction3.getString(env, tabulation);

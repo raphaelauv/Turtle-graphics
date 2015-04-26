@@ -11,9 +11,7 @@ public class Epaisseur extends Instruction{
 	public void exec(ValueEnvironment env)throws Exception {
 		env.setTaille(this.getExp().eval(env));
 	}
-	
 	public String getString(ValueEnvironment env, int tabulation) {
-		
 		return "new Epaisseur("+getExp().getString(env,tabulation)+").exec(listeVariable);";
 	}
 }

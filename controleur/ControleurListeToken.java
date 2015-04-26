@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import affichage.Fenetre;
 import affichage.Nettoyer;
 
-public class ControleurListeToken implements ActionListener ,Nettoyer{
+public class ControleurListeToken implements ActionListener ,Nettoyer {
 
 	LinkedList<String> listeDesTokens;
 	
@@ -38,18 +38,15 @@ public class ControleurListeToken implements ActionListener ,Nettoyer{
                     "Il n y a rien a exporter", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
 		}
-		
 		else{
 			Enregistrer.enregistrer(fenetre, letexte(), "listeTokens.txt");
 		}
 		
 	}
-	
 	public void ajouterToken(String token){
 		if(this.listeDesTokens==null){
 			this.listeDesTokens=new LinkedList<String>();
 		}
 		this.listeDesTokens.add(token);
 	}
-
 }

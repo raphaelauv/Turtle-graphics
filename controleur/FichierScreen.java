@@ -13,18 +13,27 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import affichage.Fenetre;
+import affichage.FenetreDessin;
+
 public class FichierScreen implements ActionListener{ // pour la capture d'ecran
 
-	JFrame fenetre;
-	JPanel lafenetreDeDessin;
-	public FichierScreen(JFrame fenetre,JPanel lafenetre){
+	private Fenetre fenetre;
+	private FenetreDessin lafenetreDeDessin;
+	public FichierScreen(Fenetre fenetre,FenetreDessin lafenetreDeDessin){
 		this.fenetre=fenetre;
-		this.lafenetreDeDessin=lafenetre;
+		this.lafenetreDeDessin=lafenetreDeDessin;
 	}
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 
+		if(lafenetreDeDessin==null){
+			JOptionPane.showMessageDialog(fenetre,
+	       			 "Rien a exporter","ERREUR",JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		
 		Dimension rec= lafenetreDeDessin.getSize();
 		BufferedImage lacapture=(BufferedImage)lafenetreDeDessin.createImage(rec.width,rec.height); // je recupere la taille de la capture
 
@@ -36,7 +45,6 @@ public class FichierScreen implements ActionListener{ // pour la capture d'ecran
 
 			int returnVal = Fenetredechoix.showSaveDialog(Fenetredechoix); // je recupere le choix
 			if(returnVal == JFileChooser.APPROVE_OPTION) { // si le choix a ?t? effectu?
-
 				File outputFile = Fenetredechoix.getSelectedFile(); // demande l'emplacement de sauvegarde dans l'ordinateur choisi precedement
 				String a=outputFile.getCanonicalPath(); // pour recuper le chemin et le nom du fichier ( emplacement choisi par l'utilisateur )
 				File sortie=new File(a+".png"); // pour mettre a la suite l'extension au fichier de l'utilisateur
@@ -47,7 +55,6 @@ public class FichierScreen implements ActionListener{ // pour la capture d'ecran
 			
 			JOptionPane.showMessageDialog(fenetre,
        			 "Erreur Enregistrement image","ERREUR",JOptionPane.WARNING_MESSAGE);
-			e.printStackTrace();
 		}
 	}
 }

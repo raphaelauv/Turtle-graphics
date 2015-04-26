@@ -1,6 +1,9 @@
 package controleur;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import affichage.Fenetre;
 
@@ -14,9 +17,11 @@ public class FenetreErreur {
 	
 	public void afficherErreur(String texte){
 		if(this.fenetre==null){
-			System.out.println(texte);
-			System.out.println("########################");
-			System.out.println("La fenetre JFame pour les erreurs est inactive");
+			JTextField c= new JTextField(texte);
+			JPanel b= new JPanel();
+			b.add(c);
+			JFrame a=new JFrame();
+			a.add(b);
 		}
 		else{
 		 JOptionPane.showMessageDialog(fenetre,

@@ -4,50 +4,44 @@ import java.awt.Point;
 import java.util.HashMap;
 
 import controleur.ControleurAvance;
+import controleur.ControleurCouleur;
+import controleur.ControleurDimension;
+import controleur.ControleurEpaisseur;
 import controleur.ControleurPinceau;
 import controleur.ControleurTourne;
 
 public class ValueEnvironment extends HashMap<String, Integer> {
 	private String couleur;
 	private ControleurAvance avance;
-	private ControleurPinceau pinceau;
+	private ControleurPinceau controleurPinceau;
+	private ControleurCouleur controleurCouleur;
+	private ControleurTourne controleurTourne;
+	private ControleurDimension controleurDimension;
+	private ControleurEpaisseur controleurEpaisseur;
 	private int taille;
 	private int angleActuel;
-	private boolean valPinceau;
+	private boolean valPinceau;//true en BAS , false en Haut
 	private boolean modeSansFENETRE;
 	private String nom;
-	
-	public boolean isValPinceau() {
-		return valPinceau;
-	}
-	public ControleurPinceau getPinceau() {
-		return pinceau;
-	}
-	public void setPinceau(ControleurPinceau pinceau) {
-		this.pinceau = pinceau;
-	}
-	private boolean encour=false;
 	private Point positionActuel;
 	
-	
-	public boolean isEncour() {
-		return encour;
-	}
-	public void setEncour(boolean encour) {
-		this.encour = encour;
-	}
-	public ValueEnvironment() {
-		
+	public ValueEnvironment(boolean valPinceau , int angleActuel, String couleur , int epaisseur) {
 		super();
 		this.setModeSansFENETRE(false);
-		this.valPinceau=false;
-		this.angleActuel=90;
-		this.couleur="BLACK";
-		this.setTaille(10);
+		this.valPinceau=valPinceau;
+		this.angleActuel=angleActuel;
+		this.couleur=couleur;
+		this.setTaille(epaisseur);
 		this.setPositionActuel(new Point(0,0));
 	}
-	public void addVariable(String name) 
-	throws Exception {
+	public ControleurPinceau getPinceau() {
+		return controleurPinceau;
+	}
+	public void setPinceau(ControleurPinceau pinceau) {
+		this.controleurPinceau = pinceau;
+	}
+
+	public void addVariable(String name) throws Exception {
 		this.put(name, null);
 	}
 	public void setVariable(String name, int value) 
@@ -62,6 +56,9 @@ public class ValueEnvironment extends HashMap<String, Integer> {
 	}
 	public void setCouleur(String couleur) {
 		this.couleur = couleur;
+		if(this.getControleurCouleur()!=null){
+			this.getControleurCouleur().action(this.couleur);
+		}
 	}
 	public ControleurAvance getAvance() {
 		return avance;
@@ -75,11 +72,13 @@ public class ValueEnvironment extends HashMap<String, Integer> {
 	public void setPositionActuel(Point positionActuel) {
 		this.positionActuel = positionActuel;
 	}
+	public boolean isValPinceau() {
+		return valPinceau;
+	}
 	public void setValPinceau(boolean descendre) {
 		this.valPinceau=descendre;
-		
-		if(this.pinceau!=null){
-			this.pinceau.action(descendre);
+		if(this.controleurPinceau!=null){
+			this.controleurPinceau.action(descendre);
 		}
 	}
 	public int getTaille() {
@@ -87,12 +86,19 @@ public class ValueEnvironment extends HashMap<String, Integer> {
 	}
 	public void setTaille(int taille) {
 		this.taille = taille;
+		if(this.controleurEpaisseur!=null){
+			this.controleurEpaisseur.action(taille);
+		}
 	}
 	public int getAngleActuel() {
 		return angleActuel;
 	}
 	public void setAngleActuel(int angleActuel) {
 		this.angleActuel = angleActuel;
+		
+    	if(this.getControleurTourne()!=null){
+    		this.getControleurTourne().action(angleActuel);
+		}
 	}
 	public boolean isModeSansFENETRE() {
 		return modeSansFENETRE;
@@ -106,5 +112,28 @@ public class ValueEnvironment extends HashMap<String, Integer> {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	
+	public ControleurTourne getControleurTourne() {
+		return controleurTourne;
+	}
+	public void setControleurTourne(ControleurTourne controleurTourne) {
+		this.controleurTourne = controleurTourne;
+	}
+	public ControleurCouleur getControleurCouleur() {
+		return this.controleurCouleur;
+	}
+	public void setControleurCouleur(ControleurCouleur controleurCouleur) {
+		this.controleurCouleur=controleurCouleur;
+	}
+	public ControleurDimension getControleurDimension() {
+		return controleurDimension;
+	}
+	public void setControleurDimension(ControleurDimension controleurDimension) {
+		this.controleurDimension = controleurDimension;
+	}
+	public ControleurEpaisseur getControleurEpaisseur() {
+		return this.controleurEpaisseur;
+	}
+	public void  setControleurEpaisseur(ControleurEpaisseur controleurEpaisseur) {
+		this.controleurEpaisseur=controleurEpaisseur;
+	}
 }

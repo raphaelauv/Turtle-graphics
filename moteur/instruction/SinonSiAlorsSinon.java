@@ -14,8 +14,9 @@ public class SinonSiAlorsSinon extends SinonSiAlors{
 		String tmp=Moteur.stringRepeat("\t", tabulation);
 		//String tmp2=super.getString(env, tabulation);
 		
-		String tmp2="if("+this.getExp().getString(env,0)+"!=0){\n"+this.getInstruction().getString(env,tabulation+1)+tmp+"}";
-		return tmp2+"\n"+tmp+"else{\n\t"+tmp+this.instruction3.getString(env,tabulation+1)+tmp+"}";
+		String tmp2="if("+this.getExp().getString(env,0)+"!=0){\n\t"+tmp
+				+this.getInstruction().getString(env,tabulation+1)+"\n"+tmp+"}";
+		return tmp2+"\n"+tmp+"else{\n\t"+tmp+this.instruction3.getString(env,tabulation+1)+"\n"+tmp+"}";
 	}
 	
 }

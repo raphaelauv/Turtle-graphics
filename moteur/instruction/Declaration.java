@@ -15,9 +15,8 @@ public class Declaration extends Instruction {
 	throws Exception {
 		
 		if(this.varName!=null){
-			
 			if(env.containsKey(varName)){
-				throw new Exception("le nom de variable "+varName +"est deja utilise ");
+				throw new Exception("le nom de variable "+varName +" est deja Declarer ");
 			}
 			env.addVariable(varName);
 			if(prog!=null){
@@ -29,7 +28,7 @@ public class Declaration extends Instruction {
 	public String getString(ValueEnvironment env, int tabulation) {
 		String tmp2=Moteur.stringRepeat("\t", tabulation);
 		if(varName!=null){
-			String tmp=tmp2+"int "+varName+";";
+			String tmp="int "+varName+";";
 			if(prog!=null){
 				return tmp+prog.getString(env, tabulation);
 			}

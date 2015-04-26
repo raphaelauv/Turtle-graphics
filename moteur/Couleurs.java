@@ -13,8 +13,21 @@ public enum Couleurs {
 	PINK,
 	RED,
 	WHITE,
-	YELLOW;
-	
+	YELLOW,
+	black,
+	blue,
+	cyan,
+	dark_gray,
+	gray,
+	green,
+	light_gray,
+	magenta,
+	orange,
+	pink,
+	red,
+	white,
+	yellow;
+
 	public static String liste(){
 		String tmp="";
 		for(Couleurs c: Couleurs.values()){

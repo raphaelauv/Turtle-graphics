@@ -34,7 +34,6 @@ public class Trait {
 		this.fin.x=(int) (debut.x+taille*Math.cos(Math.toRadians(angle)));
 		this.fin.y=(int) (debut.y+taille*Math.sin(Math.toRadians(angle)));
 		
-		//System.out.println("point de fin "+fin);
 	}
 
 	@Override

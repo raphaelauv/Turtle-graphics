@@ -17,14 +17,14 @@ public class FenetreTortue extends JPanel {
 	private Point position;
 	private boolean afficherImage=true;
 	
-	FenetreTortue(){
+	FenetreTortue() throws Exception{
 		
 		this.position=new Point(0,0);
 		try {
 			image = ImageIO.read(this.getClass().getResource("image.png"));
 
 		} catch (Exception e) {
-			System.out.println("Une image na pas etait trouver.");
+			throw new Exception("Une image na pas etait trouver.");
 		}
 	}
 	

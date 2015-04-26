@@ -21,7 +21,7 @@ public class FaireTantQue extends TantQue {
 		
 		public String getString(ValueEnvironment env, int tabulation){
 			String tmp=Moteur.stringRepeat("\t", tabulation);
-			return "do{\n"+this.getInstruction().getString(env,tabulation)+"\n}while("+this.getInstruction().getString(env,tabulation)+")";
+			return "do{\n\t"+tmp+this.getInstruction().getString(env,tabulation)+"\n"+tmp+"}\n"+tmp+"while("+this.getExp().getString(env,tabulation)+"!=0);";
 			
 		}
 	}

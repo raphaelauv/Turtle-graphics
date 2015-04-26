@@ -20,18 +20,19 @@ public class Enregistrer {
           FileWriter writer = null;
           try {
         	  File file = chooser.getSelectedFile();
-              
         	  writer = new FileWriter(file);
         	  writer.write(texte);
+        	  
           } catch (Exception ex) {
               JOptionPane.showMessageDialog(fenetre,
-                      "Erreur sauvegarde", "ERROR", JOptionPane.ERROR_MESSAGE);
+                      "Erreur de sauvegarde", "ERROR", JOptionPane.ERROR_MESSAGE);
           } finally {
               if (writer != null) {
                   try {
                       writer.close();
                   } catch (IOException x) {
-                	  
+                	  JOptionPane.showMessageDialog(fenetre,
+                              "Erreur de fermeture de Reader", "ERROR", JOptionPane.ERROR_MESSAGE);
                   }
               }
           }
