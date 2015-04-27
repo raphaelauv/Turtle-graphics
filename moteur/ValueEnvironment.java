@@ -3,12 +3,12 @@ package moteur;
 import java.awt.Point;
 import java.util.HashMap;
 
-import controleur.ControleurAvance;
-import controleur.ControleurCouleur;
-import controleur.ControleurDimension;
-import controleur.ControleurEpaisseur;
-import controleur.ControleurPinceau;
-import controleur.ControleurTourne;
+import controleur.GUI.ControleurAvance;
+import controleur.GUI.ControleurCouleur;
+import controleur.GUI.ControleurDimension;
+import controleur.GUI.ControleurEpaisseur;
+import controleur.GUI.ControleurPinceau;
+import controleur.GUI.ControleurTourne;
 
 public class ValueEnvironment extends HashMap<String, Integer> {
 	private String couleur;

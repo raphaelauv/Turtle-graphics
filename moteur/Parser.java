@@ -30,7 +30,6 @@ import moteur.instruction.Tourne;
 class Parser {
 
     protected LookAhead1 reader;
-    
     public Parser(LookAhead1 r) {
 	   reader=r;
 	   
@@ -360,10 +359,8 @@ class Parser {
 			return this.nonTermExpSuite(first);
 		}
 		else{
-			
-			throw new Exception("reader erreur a la ligne : "+reader.getLine() +" en position "+reader.getColumn());
+			throw new Exception("reader erreur :  " +reader.getString());
 		}
-    	
     	}
     
     private Expression nonTermExpSuite(Expression first) throws Exception{

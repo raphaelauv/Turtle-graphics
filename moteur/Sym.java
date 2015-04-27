@@ -47,4 +47,14 @@ public enum Sym {
     SINON, // else
     SINONSI; // elseif
 	
+	/*
+	private String sym;
+	
+	Sym(String Sym){
+		this.sym=Sym;
+	}
+
+	public String getSym() {
+		return sym;
+	}*/
 }

@@ -1,14 +1,12 @@
-package controleur;
+package controleur.GUI;
 
 import affichage.Fenetre;
 
-public class ControleurCouleur {
-	private Fenetre fenetre;
+public class ControleurCouleur extends ControleurGUI {
 	public ControleurCouleur(Fenetre fenetre){
-		this.fenetre=fenetre;	
+		super(fenetre);
 	}
-	public void action(String couleur) {
-		
+	public void action(String couleur) {		
 		if(fenetre==null){
 			return;
 		}

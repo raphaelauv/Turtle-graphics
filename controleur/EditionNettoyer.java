@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
+import controleur.fichier.FichierProgJava;
 import affichage.Fenetre;
 import affichage.FenetreDessin;
 import affichage.Nettoyer;

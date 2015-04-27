@@ -1,14 +1,13 @@
-package controleur;
+package controleur.GUI;
 
 import affichage.Fenetre;
 
-public class ControleurPinceau {
+public class ControleurPinceau extends ControleurGUI{
 	
-	private Fenetre fenetre;
 	private boolean pinceau;
 	
 	public ControleurPinceau(Fenetre fenetre,boolean pinceau){
-		this.fenetre=fenetre;
+		super(fenetre);
 		this.pinceau=pinceau;
 	}
 	

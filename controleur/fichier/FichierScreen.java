@@ -1,4 +1,4 @@
-package controleur;
+package controleur.fichier;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;

@@ -27,7 +27,6 @@ public class ControleurInterpreteur  implements ActionListener  {
 		}
 		String texte=this.jtext.getText();
 		
-		
 		this.jtext.requestFocus();
 		
 		if(this.fenetre==null){
@@ -36,6 +35,8 @@ public class ControleurInterpreteur  implements ActionListener  {
 		boolean succes=true;
 		try {
 			succes=this.fenetre.dessiner(new StringReader(texte),true);
+			this.fenetre.pack();
+			this.fenetre.validate();
 		} catch (Exception e) {
 			 JOptionPane.showMessageDialog(fenetre,
         			 e.getMessage(),"ERREUR",JOptionPane.WARNING_MESSAGE);
@@ -43,6 +44,7 @@ public class ControleurInterpreteur  implements ActionListener  {
 		if(succes){
 			this.jtext.setText(null);
 		}
+		this.fenetre.getFenetreDessin().repaint();
 	}
 
 	

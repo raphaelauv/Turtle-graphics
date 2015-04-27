@@ -37,10 +37,13 @@ public class ProgramPrincipal{
 			throw new Exception("erreur sur choix du nom de la class");
 		}
 		String tmp = "import moteur.ValueEnvironment;\n"
+				+ "import moteur.instruction.*;\n"
+				/*+ "import moteur.instruction.Epaisseur;\n"
 				+ "import moteur.instruction.Avance;\n"
 				+ "import moteur.instruction.BasPinceau;\n"
+				+ "import moteur.instruction.HautPinceau;\n"
 				+ "import moteur.instruction.ChangeCouleur;\n"
-				+ "import moteur.instruction.Tourne;\n"
+				+ "import moteur.instruction.Tourne;\n"*/
 				+ "public class "+nameClass+"{\n\tpublic static void main(String[] args) throws Exception {\n"
 		;
 		return tmp;

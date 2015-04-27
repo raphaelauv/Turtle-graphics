@@ -1,4 +1,4 @@
-package controleur;
+package controleur.fichier;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

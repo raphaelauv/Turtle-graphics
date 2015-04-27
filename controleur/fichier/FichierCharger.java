@@ -1,4 +1,4 @@
-package controleur;
+package controleur.fichier;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,15 +20,12 @@ public class FichierCharger implements ActionListener {
 		this.fenetre=fenetre;
 	}
 	
-	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (this.fenetre == null){
 			return;
 		}
-		
 		File file=this.getFile("charger pseudo code",null);
-		
-         FileReader reader = null;
+		FileReader reader = null;
          try {
              reader = new FileReader(file);
              
@@ -41,23 +38,28 @@ public class FichierCharger implements ActionListener {
          }
          try{
         	 fenetre.setAfficherSortie(false);
-        	 ((Fenetre) this.fenetre).dessiner(reader,false);
-        	 if (reader != null) {
-                 try {
-                     reader.close();
-                 } catch (Exception x) {
-                	 //throw new Exception("Erreur a la fermeture du reader du fichier charger");
-                	 //x.printStackTrace();
-                	 
-                	 JOptionPane.showMessageDialog(fenetre,
-                			 x.getMessage(),"ERREUR",JOptionPane.WARNING_MESSAGE);
-                 }
-             }
+        	 this.fenetre.dessiner(reader,false);
+        	 int x=this.fenetre.getFenetreDessin().getWidth();
+        	 int y=this.fenetre.getFenetreDessin().getHeight();
+        	 
+        	 this.fenetre.getFenetreDessin().repaint(0,0,x,y);
+        	 
          } catch (Exception ex) {
         	 //ex.printStackTrace();
         	 JOptionPane.showMessageDialog(fenetre,
         			 ex.getMessage(),"ERREUR",JOptionPane.WARNING_MESSAGE);
          }
+		if (reader != null) {
+			try {
+				reader.close();
+			} catch (Exception x) {
+				// throw new Exception("Erreur a la fermeture du reader du fichier charger");
+				// x.printStackTrace();
+
+				JOptionPane.showMessageDialog(fenetre, x.getMessage(),
+						"ERREUR", JOptionPane.WARNING_MESSAGE);
+			}
+		}
 	}
 	
 	protected File getFile(String nameofBox , String extension){

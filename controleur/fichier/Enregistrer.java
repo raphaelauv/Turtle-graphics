@@ -1,4 +1,4 @@
-package controleur;
+package controleur.fichier;
 
 import java.io.File;
 import java.io.FileWriter;

@@ -1,19 +1,14 @@
-package controleur;
+package controleur.GUI;
 
 
 import javax.swing.JOptionPane;
-
-import moteur.ValueEnvironment;
-import moteur.expression.Expression;
 import affichage.Fenetre;
 import affichage.Trait;
 
-public class ControleurAvance{
+public class ControleurAvance extends ControleurGUI{
 
-	private Fenetre fenetre;
-	
 	public ControleurAvance(Fenetre fenetre){
-		this.fenetre=fenetre;
+		super(fenetre);
 	}
 	public void action(Trait tmp){
 		if(fenetre !=null){

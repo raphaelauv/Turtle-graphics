@@ -1,14 +1,12 @@
-package controleur;
+package controleur.GUI;
 
 import affichage.Fenetre;
 import affichage.Trait;
 
-public class ControleurTourne{
-	
-	protected Fenetre fenetre;
+public class ControleurTourne extends ControleurGUI{
 	
 	public ControleurTourne(Fenetre fenetre){
-		this.fenetre=fenetre;
+		super(fenetre);
 	}
 	
 	public void action(int angle){

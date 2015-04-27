@@ -31,8 +31,15 @@ public class Trait {
 		System.out.println("point de debut : "+debut);
 		*/
 		this.fin=new Point();
-		this.fin.x=(int) (debut.x+taille*Math.cos(Math.toRadians(angle)));
-		this.fin.y=(int) (debut.y+taille*Math.sin(Math.toRadians(angle)));
+		
+		if(angle==270){
+			this.fin.x=debut.x;
+			this.fin.y=debut.y-taille;
+		}else{
+
+			this.fin.x=(int) (debut.x+taille*Math.cos(Math.toRadians(angle)));
+			this.fin.y=(int) (debut.y+taille*Math.sin(Math.toRadians(angle)));
+		}
 		
 	}
 

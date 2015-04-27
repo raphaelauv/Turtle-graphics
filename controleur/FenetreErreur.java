@@ -22,6 +22,8 @@ public class FenetreErreur {
 			b.add(c);
 			JFrame a=new JFrame();
 			a.add(b);
+			a.setVisible(true);
+			a.pack();
 		}
 		else{
 		 JOptionPane.showMessageDialog(fenetre,

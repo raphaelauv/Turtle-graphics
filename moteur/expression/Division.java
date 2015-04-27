@@ -13,7 +13,10 @@ public class Division extends Expression {
 	public int eval(ValueEnvironment env) throws Exception {
 		int droite=right.eval(env);
 		if(droite==0){
-			throw new Exception("attention division par 0");
+			throw new Exception("ATTENTION division par 0 \n"
+					+ left.getString(env, 0)+" / "
+					+ right.getString(env, 0)+" =0 "
+					);
 		}
 		return left.eval(env)/droite;
 	}

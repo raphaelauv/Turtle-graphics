@@ -3,25 +3,38 @@ package moteur;
 import java.io.Reader;
 
 import moteur.expression.ProgramPrincipal;
-import controleur.ControleurAvance;
-import controleur.ControleurCouleur;
-import controleur.ControleurDimension;
-import controleur.ControleurEpaisseur;
 import controleur.ControleurListeToken;
-import controleur.ControleurPinceau;
-import controleur.ControleurTourne;
 import controleur.FenetreErreur;
+import controleur.GUI.ControleurAvance;
+import controleur.GUI.ControleurCouleur;
+import controleur.GUI.ControleurDimension;
+import controleur.GUI.ControleurEpaisseur;
+import controleur.GUI.ControleurPinceau;
+import controleur.GUI.ControleurTourne;
 
 public class Moteur {
 	private Lexer lexer;
 	private LookAhead1 look;
     private ValueEnvironment listeVariable;
-    private Parser parser;
+	private Parser parser;
 	private ProgramPrincipal ProgramPrincipal;
-	protected FenetreErreur fenetreErreur;
+	
+    public ValueEnvironment getListeVariable() {
+		return listeVariable;
+	}
+	public void setListeVariable(ValueEnvironment listeVariable) {
+		this.listeVariable = listeVariable;
+	}
+	
 	
 	public Moteur(Reader reader,boolean pinceau, int angle , String couleur , int epaisseur) throws Exception{
-		ValueEnvironment listeVariable= new ValueEnvironment(pinceau, 90, couleur, epaisseur);
+		ValueEnvironment listeVariable= new ValueEnvironment(pinceau, angle, couleur, epaisseur);
+		this.listeVariable=listeVariable;
+		this.lexer = new Lexer(reader);
+        this.look = new LookAhead1(lexer);
+        this.parser = new Parser(look);
+	}
+	public Moteur(Reader reader,ValueEnvironment listeVariable) throws Exception{
 		this.listeVariable=listeVariable;
 		this.lexer = new Lexer(reader);
         this.look = new LookAhead1(lexer);
@@ -88,22 +101,26 @@ public class Moteur {
 		this.listeVariable.setControleurDimension(controleurDimension);
 	}
 
-	public void setFenetreErreur(FenetreErreur fenetreErreur) {
-		this.fenetreErreur=fenetreErreur;
-	}
 	
 	public String getString(){
+		if(ProgramPrincipal==null){
+			return "";
+		}
 		return ProgramPrincipal.getString(listeVariable,2);
 	}
 	
 	public String getFirstString(String nomClasse) throws Exception{
 		if(ProgramPrincipal==null){
 			//throw new Exception("attention impossible d'appeler methode GetFirstString sans appeler analyseSynt avant sur le moteur");
+			return"";
 		}
 		return ProgramPrincipal.getFistString(nomClasse);
 	}
 	
 	public String getLastString(){
+		if(ProgramPrincipal==null){
+			return "";
+		}
 		return ProgramPrincipal.getLastString();
 	}
 	public static String stringRepeat(String chaine, int multiplicateur){
@@ -121,7 +138,6 @@ public class Moteur {
 			return "";
 		}
 	}
-	
 	
 	public ProgramPrincipal getProgramPrincipal() {
 		return ProgramPrincipal;
