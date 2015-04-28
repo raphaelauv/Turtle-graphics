@@ -38,7 +38,6 @@ variable = [a-zA-Z][a-zA-Z0-9]*
    "Epaisseur"	{return  token(Sym.EPAISSEUR,yyline, yycolumn);}
    "For"		{return  token(Sym.FOR,yyline, yycolumn);}
    "Faire"		{return  token(Sym.FAIRE,yyline, yycolumn);}
-   "Print"		{return  token(Sym.PRINT,yyline, yycolumn);}
    "Avance"		{return  token(Sym.AVANCE,yyline, yycolumn);}
    "Si"			{return  token(Sym.SI,yyline, yycolumn);}
    "Taille"		{return  token(Sym.TAILLE,yyline, yycolumn);}

@@ -1,6 +1,6 @@
 package moteur;
 
-class Token {
+public class Token {
     protected Sym symbol;
     protected int line;
     protected int column;
@@ -26,39 +26,9 @@ class Token {
     public String getStringSym(){
     	return ""+this.symbol;
     }
-}
-
-class IntToken extends Token {
-    private int value;
-	
-	public IntToken(Sym s ,int line , int column, int v){
-		
-		super(s,line,column);
-		this.value=v;
-}
-
-	public int getValue() {
-		return value;
-	}
-
-	public void setValue(int value) {
-		this.value = value;
-	
-}
-}
-
-class VarToken extends Token {
-    private String nom;
-	public VarToken(Sym s ,int line , int column, String nom){
-
-		super(s,line , column);
-		this.nom=nom;
-		
-	}
-	public String getValue() {
-		return nom;
-		
-	}
-	
+    
+    public String getSpeudoCode(){
+    	return this.symbol.getPseudoCode();
+    }
 }
 

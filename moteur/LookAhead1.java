@@ -1,14 +1,13 @@
 package moteur;
 
-import controleur.ControleurListeToken;
-
+import controleur.ControleurExportToken;
 
 class LookAhead1  {
     /* Simulating a reader class for a stream of Token */
     
     private Token current;
     private Lexer lexer;
-    private ControleurListeToken controleur;
+    private ControleurExportToken controleur;
 
 	public LookAhead1(Lexer l) throws Exception {
 	lexer=l;
@@ -28,7 +27,7 @@ class LookAhead1  {
 	    throw new Exception("\nCan't eat "+s+" current being "+current);
 	}
 		if(controleur!=null){
-			controleur.ajouterToken(current.toString());
+			controleur.ajouterToken(current);
 		}
         current=lexer.yylex();
     }
@@ -51,7 +50,7 @@ class LookAhead1  {
             VarToken t = (VarToken) current;
             return t.getValue();
         } else {
-            throw new Exception("LookAhead error: get value from a non-valued token");
+            throw new Exception("LookAhead error: get value from a non-valued token \nUne variable etait attendu");
         }   
     }
 
@@ -69,11 +68,11 @@ class LookAhead1  {
     public int getColumn(){
     	return current.column;
     }
-    public ControleurListeToken getControleur() {
+    public ControleurExportToken getControleur() {
 		return controleur;
 	}
 
-	public void setControleur(ControleurListeToken controleur) {
+	public void setControleur(ControleurExportToken controleur) {
 		this.controleur = controleur;
 	}
 

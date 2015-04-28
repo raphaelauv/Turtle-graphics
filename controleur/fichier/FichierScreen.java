@@ -33,6 +33,8 @@ public class FichierScreen implements ActionListener{ // pour la capture d'ecran
 	       			 "Rien a exporter","ERREUR",JOptionPane.WARNING_MESSAGE);
 			return;
 		}
+		this.lafenetreDeDessin.setAfficherCurseur(false);
+		this.lafenetreDeDessin.repaint();
 		
 		Dimension rec= lafenetreDeDessin.getSize();
 		BufferedImage lacapture=(BufferedImage)lafenetreDeDessin.createImage(rec.width,rec.height); // je recupere la taille de la capture
@@ -56,5 +58,8 @@ public class FichierScreen implements ActionListener{ // pour la capture d'ecran
 			JOptionPane.showMessageDialog(fenetre,
        			 "Erreur Enregistrement image","ERREUR",JOptionPane.WARNING_MESSAGE);
 		}
+		
+		this.lafenetreDeDessin.setAfficherCurseur(true);
+		this.lafenetreDeDessin.repaint();
 	}
 }

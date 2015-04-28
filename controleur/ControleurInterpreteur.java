@@ -18,7 +18,6 @@ public class ControleurInterpreteur  implements ActionListener  {
 		this.jtext=interpreteur;
 		this.fenetre=fenetre;
 	}
-	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 
@@ -46,7 +45,4 @@ public class ControleurInterpreteur  implements ActionListener  {
 		}
 		this.fenetre.getFenetreDessin().repaint();
 	}
-
-	
-
 }

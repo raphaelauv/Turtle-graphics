@@ -17,11 +17,15 @@ public class Avance extends Instruction {
 		Trait tmp = new Trait(this.getExp().eval(env), env.getTaille(),
 				env.getCouleur(), env.getPositionActuel(),
 				env.getAngleActuel(), env.isValPinceau());
-		
-		env.setPositionActuel(tmp.getFin());
 			
 		if(env.getAvance()!=null){
-			env.getAvance().action(tmp);
+			boolean paSortie=env.getAvance().action(tmp);
+			if(paSortie){
+				env.setPositionActuel(tmp.getFin());
+			}
+			else{
+				throw new Exception("Attention vous etes sortie des dimensions");
+			}
 		}
 		if(env.isModeSansFENETRE()){
 			System.out.println(tmp);
@@ -31,8 +35,7 @@ public class Avance extends Instruction {
 	}
 	public String getString(ValueEnvironment env, int tabulation) {
 		
-		String tmp = "new Avance("+this.getExp().getString(env,tabulation)+")"
-				
+		String tmp = "new Avance("+this.getExp().getString(env,tabulation)+")"				
 				/*+ "new Trait("+this.getExp().getString(env)
 				+ ",listeVariable.getTaille(),listeVariable.getCouleur(),"
 				+ "listeVariable.getPositionActuel(),"

@@ -1,20 +1,30 @@
 package affichage;
 
+
 import java.awt.BorderLayout;
+import java.awt.Canvas;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.ScrollPane;
 import java.awt.Scrollbar;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Reader;
 import java.util.LinkedList;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -27,7 +37,8 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import controleur.ControleurListeToken;
+import controleur.ControleurExportToken;
+import controleur.ControleurPositionCurseurCouleur;
 import controleur.EditionNettoyer;
 import controleur.FenetreErreur;
 import controleur.GUI.ControleurAvance;
@@ -44,10 +55,9 @@ import moteur.ValueEnvironment;
 public class Fenetre extends JFrame implements Nettoyer {
 
 	private Moteur moteur;
-	private LinkedList<Moteur> listeInter;
-	
+	private LinkedList<Moteur> listeInter;	
 	private FenetreDessin fenetreDessin;
-	private ControleurListeToken controleurListeToken;
+	private ControleurExportToken controleurListeToken;
 	private FichierScreen screenSaver;
 	private FenetreErreur fenetreErreur;
 	private FichierProgJava controleurProgJava;
@@ -61,16 +71,15 @@ public class Fenetre extends JFrame implements Nettoyer {
 	private VariableAfficher dimension;
 	private VariableAfficher position;
 	
-	
 	private ControleurCouleur controleurCouleur;
 	private ControleurAvance controleurAvance;
 	private ControleurPinceau controleurPinceau;
 	private ControleurTourne controleurTourne;
 	private ControleurDimension controleurDimension;
 	private ControleurEpaisseur controleurEpaisseur;
-	private boolean afficherSortie;
 	
-
+	private boolean afficherSortie;//Afficher une erreur pour une sortie
+	
 	public boolean isAfficherSortie() {
 		return afficherSortie;
 	}
@@ -87,17 +96,20 @@ public class Fenetre extends JFrame implements Nettoyer {
 		super("Dessin ADS4");
 		this.afficherSortie=false;
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.fenetreDessin = new FenetreDessin();
-		this.controleurListeToken = new ControleurListeToken(this);
+		this.position = new VariableAfficher("Position curseur X:Y","0:0",true);
+		this.fenetreDessin = new FenetreDessin(this.position);
+		
+		this.controleurListeToken = new ControleurExportToken(this);
 		this.controleurProgJava = new FichierProgJava(this,listeInter);
 		this.fenetreErreur = new FenetreErreur(this);
-		this.angle = new VariableAfficher("Angle","90");
-		this.epaisseur = new VariableAfficher("Epaisseur","1");
-		this.couleur = new VariableAfficher("Couleur","BLACK");
-		this.dimension = new VariableAfficher("Dimension","400x400");
-		this.position = new VariableAfficher("Position curseur","0,0");
+		this.angle = new VariableAfficher("Angle","90",false);
+		this.epaisseur = new VariableAfficher("Epaisseur","1",false);
+		this.couleur = new VariableAfficher("Couleur","BLACK",false);
+		this.dimension = new VariableAfficher("Dimension","400x400",false);
+		
 		this.screenSaver = new FichierScreen(this,fenetreDessin);
 		this.setContentPane(new ScrollPane());
+		
 		
 		//Controleur
 		
@@ -107,11 +119,12 @@ public class Fenetre extends JFrame implements Nettoyer {
 		this.controleurTourne = new ControleurTourne(this);
 		this.controleurDimension=new ControleurDimension(this);
 		this.controleurEpaisseur=new ControleurEpaisseur(this);
+		this.position.addActionListener(new ControleurPositionCurseurCouleur(this.fenetreDessin,this.position));
 		
 		//Elements du Menu FICHIER
 		JMenuItem quitter = new JMenuItem("Quitter");
 		JMenuItem compiler = new JMenuItem("Compiler .java");
-		JMenuItem listeTokens = new JMenuItem("Exporter liste Tokens");
+		JMenuItem listeTokens = new JMenuItem("Exporter SpeudoCode - Tokens");
 		JMenuItem progJava = new JMenuItem("Exporter programme JAVA");
 		JMenuItem charger = new JMenuItem("Charger");
 		JMenuItem screen = new JMenuItem("Sauvegarder image");
@@ -167,7 +180,6 @@ public class Fenetre extends JFrame implements Nettoyer {
 		
 		this.setJMenuBar(menuBar);
 		
-		
 		// INTERPRETEUR
 		
 		JTextField interpreteur =new JTextField("");
@@ -199,15 +211,15 @@ public class Fenetre extends JFrame implements Nettoyer {
 		 
 		interpreteur.addKeyListener(keyListener);
 		ok.addActionListener(new controleur.ControleurInterpreteur(interpreteur, this));
-
 		
 		//les JPANEL
 		JPanel zoneImage =new JPanel();
 		zoneImage.setBackground(Color.GRAY);
-		JPanel a =new JPanel();
-		//a.setSize(0, 0);
-		a.setBackground(Color.WHITE);
+		JPanel a = new JPanel();
+		a.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY)); 
+		a.setLayout(new CardLayout());
 		a.add(this.fenetreDessin);
+		
 		zoneImage.add(a);
 		
 		/*
@@ -268,12 +280,11 @@ public class Fenetre extends JFrame implements Nettoyer {
 		}
 		return succes;
 	}
-	public boolean dessinerAvance(Trait n) {
-		if(fenetreDessin!=null){
-			this.fenetreDessin.dessiner(n);
-		}
-		if(this.fenetreDessin!=null){
-			return this.fenetreDessin.isSortie();
+	public boolean dessinerAvance(Trait adessiner) throws Exception {
+		if(fenetreDessin!=null && !Fenetre.isSortie(adessiner,this.fenetreDessin) ){
+			this.fenetreDessin.dessiner(adessiner);
+			this.position.setValeur(adessiner.fin.x +":"+adessiner.fin.y);
+			return true;
 		}
 		else return false;
 	}
@@ -300,6 +311,7 @@ public class Fenetre extends JFrame implements Nettoyer {
 		this.angle.setValeur("90");
 		this.epaisseur.setValeur("1");
 		this.couleur.setValeur("BLACK");
+		this.position.setValeur("0:0");
 		this.fenetreDessin.nettoyer();
 	}
 	public void changerDimension(Dimension dimension) {
@@ -321,13 +333,23 @@ public class Fenetre extends JFrame implements Nettoyer {
 			
 			this.dimension.setValeur(x+"x"+y);
 		}
-		
-
 		if(this.fenetreDessin.isSortie()){
 			JOptionPane.showMessageDialog(this,
 					"Attention vous etes sortie des dimensions"
 					,"ERREUR ",JOptionPane.ERROR_MESSAGE);
 		}
+	}
+
+	public static boolean isSortie(Trait adessiner ,Canvas fenetre) throws Exception{
+		if(adessiner==null || fenetre==null){
+			throw new Exception("Appel avec argument(s) null");
+		}
+		if(adessiner.fin.x>fenetre.getWidth() ||adessiner.fin.x<0 || 
+				(fenetre.getHeight()-1)- adessiner.fin.y<0 || 
+				(fenetre.getHeight()-1)- adessiner.fin.y>fenetre.getHeight()){
+			return true;
+		}
+		return false;
 	}
 	public FenetreDessin getFenetreDessin() {
 		return fenetreDessin;

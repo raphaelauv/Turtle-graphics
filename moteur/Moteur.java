@@ -3,8 +3,7 @@ package moteur;
 import java.io.Reader;
 
 import moteur.expression.ProgramPrincipal;
-import controleur.ControleurListeToken;
-import controleur.FenetreErreur;
+import controleur.ControleurExportToken;
 import controleur.GUI.ControleurAvance;
 import controleur.GUI.ControleurCouleur;
 import controleur.GUI.ControleurDimension;
@@ -85,7 +84,7 @@ public class Moteur {
 		this.listeVariable.setPinceau(controleurPinceau);
 		
 	}
-	public void setControleurListeToken(ControleurListeToken controleurListeToken) throws Exception {
+	public void setControleurListeToken(ControleurExportToken controleurListeToken) throws Exception {
 		if(look !=null){
 			this.look.setControleur(controleurListeToken);
 		}

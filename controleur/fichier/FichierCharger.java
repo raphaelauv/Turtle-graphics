@@ -55,7 +55,7 @@ public class FichierCharger implements ActionListener {
 			} catch (Exception x) {
 				// throw new Exception("Erreur a la fermeture du reader du fichier charger");
 				// x.printStackTrace();
-
+				
 				JOptionPane.showMessageDialog(fenetre, x.getMessage(),
 						"ERREUR", JOptionPane.WARNING_MESSAGE);
 			}

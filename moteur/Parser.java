@@ -359,9 +359,10 @@ class Parser {
 			return this.nonTermExpSuite(first);
 		}
 		else{
-			throw new Exception("reader erreur :  " +reader.getString());
+			throw new Exception("Une variable ou expression etait attendu \n"
+					+ "a la place a ete trouver :  " +reader.getString());
 		}
-    	}
+    }
     
     private Expression nonTermExpSuite(Expression first) throws Exception{
     	
@@ -396,7 +397,8 @@ class Parser {
 			return new Product(first ,this.nontermExp());
 		}
 		else{
-			throw new Exception("reader erreur a la ligne : "+reader.getLine() +" en position "+reader.getColumn());
+			throw new Exception("Un operateur etait attendu \n"
+					+ "a la place a ete trouver :  " +reader.getString());
 		}
 	}
-    }
+}

@@ -17,16 +17,17 @@ public enum Couleurs {
 	black,
 	blue,
 	cyan,
-	dark_gray,
+	darkGray,
 	gray,
 	green,
-	light_gray,
+	lightGray,
 	magenta,
 	orange,
 	pink,
 	red,
 	white,
-	yellow;
+	yellow,
+	aleatoire;
 
 	public static String liste(){
 		String tmp="";

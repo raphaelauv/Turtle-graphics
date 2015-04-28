@@ -1,6 +1,5 @@
 package controleur.GUI;
 
-
 import javax.swing.JOptionPane;
 import affichage.Fenetre;
 import affichage.Trait;
@@ -10,17 +9,17 @@ public class ControleurAvance extends ControleurGUI{
 	public ControleurAvance(Fenetre fenetre){
 		super(fenetre);
 	}
-	public void action(Trait tmp){
+	
+	public boolean action(Trait tmp) throws Exception{
 		if(fenetre !=null){
-			boolean sortie=fenetre.dessinerAvance(tmp);
-			if(!fenetre.isAfficherSortie() && sortie){
-				JOptionPane.showMessageDialog(fenetre,
-						"Attention vous etes sortie des dimensions"
-						,"ERREUR ",JOptionPane.ERROR_MESSAGE);
-				
-				fenetre.setAfficherSortie(true);
+			boolean pasSortieCanvas=fenetre.dessinerAvance(tmp);
+			if(pasSortieCanvas){
+				return true;
 			}
-			
+			else{
+				return false;
+			}
 		}
+		return false;
 	}
 }
