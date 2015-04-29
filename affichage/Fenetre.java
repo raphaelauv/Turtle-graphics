@@ -49,11 +49,14 @@ import controleur.GUI.ControleurPinceau;
 import controleur.GUI.ControleurTourne;
 import controleur.fichier.FichierProgJava;
 import controleur.fichier.FichierScreen;
+import moteur.IntToken;
 import moteur.Moteur;
-import moteur.ValueEnvironment;
+import moteur.Sym;
+import moteur.Token;
+import moteur.VarToken;
 
 public class Fenetre extends JFrame implements Nettoyer {
-
+	
 	private Moteur moteur;
 	private LinkedList<Moteur> listeInter;	
 	private FenetreDessin fenetreDessin;
@@ -97,12 +100,13 @@ public class Fenetre extends JFrame implements Nettoyer {
 		this.afficherSortie=false;
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.position = new VariableAfficher("Position curseur X:Y","0:0",true);
-		this.fenetreDessin = new FenetreDessin(this.position);
+		this.angle = new VariableAfficher("Angle","90",false);
+		this.fenetreDessin = new FenetreDessin(this.position,this.angle);
 		
 		this.controleurListeToken = new ControleurExportToken(this);
 		this.controleurProgJava = new FichierProgJava(this,listeInter);
 		this.fenetreErreur = new FenetreErreur(this);
-		this.angle = new VariableAfficher("Angle","90",false);
+		
 		this.epaisseur = new VariableAfficher("Epaisseur","1",false);
 		this.couleur = new VariableAfficher("Couleur","BLACK",false);
 		this.dimension = new VariableAfficher("Dimension","400x400",false);
@@ -245,7 +249,7 @@ public class Fenetre extends JFrame implements Nettoyer {
 		
 
 	} 
-	private boolean moteurAnalyseAndParcourt(Moteur moteur){
+	private boolean moteurAnalyseAndParcourt(Moteur moteur,boolean modeInterpreteur){
 		try {
 			moteur.analyseSynt();
 			moteur.parcourtArbre();
@@ -254,13 +258,48 @@ public class Fenetre extends JFrame implements Nettoyer {
 			fenetreErreur.afficherErreur(e.getMessage());
 			return false;
 		}
+		if(modeInterpreteur){
+			this.controleurListeToken.ajouterToken(new Token(Sym.VIRGULEINTER,-1,-1));
+		}
 		return true;
 		
+	}
+	private void ajouterTokensMiseAzero(){
+		this.controleurListeToken.ajouterToken(new Token(Sym.HAUTPINCEAU, -1, -1));
+		this.controleurListeToken.ajouterToken(new Token(Sym.CONCAT, -1, -1));
+		this.controleurListeToken.ajouterToken(new Token(Sym.GO, -1, -1));
+		this.controleurListeToken.ajouterToken(new IntToken(Sym.INT, -1, -1 ,0));
+		this.controleurListeToken.ajouterToken(new IntToken(Sym.INT, -1, -1, 0));
+		this.controleurListeToken.ajouterToken(new Token(Sym.CONCAT, -1, -1));
+		this.controleurListeToken.ajouterToken(new Token(Sym.COULEUR, -1, -1));
+		this.controleurListeToken.ajouterToken(new VarToken(Sym.VARIABLE, -1, -1,"black"));
+		this.controleurListeToken.ajouterToken(new Token(Sym.CONCAT, -1, -1));
+		this.controleurListeToken.ajouterToken(new Token(Sym.EPAISSEUR, -1, -1));
+		this.controleurListeToken.ajouterToken(new IntToken(Sym.INT, -1, -1, 1));
+		this.controleurListeToken.ajouterToken(new Token(Sym.CONCAT, -1, -1));
+		int angleActuel=Integer.parseInt(this.angle.getValeur());
+		int difference=angleActuel-90;
+		if(angleActuel<difference){
+			difference=difference*-1;
+		}
+		this.controleurListeToken.ajouterToken(new Token(Sym.TOURNE, -1, -1));
+		this.controleurListeToken.ajouterToken(new IntToken(Sym.INT, -1, -1 ,0));
+		if(difference<0){
+			this.controleurListeToken.ajouterToken(new Token(Sym.PLUS, -1, -1));
+			this.controleurListeToken.ajouterToken(new IntToken(Sym.INT, -1, -1 ,difference*-1));
+		}else{
+			this.controleurListeToken.ajouterToken(new Token(Sym.MINUS, -1, -1));
+			this.controleurListeToken.ajouterToken(new IntToken(Sym.INT, -1, -1 ,difference));
+		}
+		this.controleurListeToken.ajouterToken(new Token(Sym.CONCAT, -1, -1));
 	}
 	public boolean dessiner(Reader reader,boolean modeInterpreteur) throws Exception {
 		
 		boolean succes=true;// si la commende n'a pas emis derreur
 		if(this.moteur==null || !modeInterpreteur){
+			if(this.moteur!=null){
+				this.ajouterTokensMiseAzero();
+			}
 			this.moteur=new Moteur(reader,false,90,"BLACK",1);
 			this.moteur.setControleurCouleur(this.controleurCouleur);
 			this.moteur.setControleurAvance(this.controleurAvance);
@@ -269,19 +308,27 @@ public class Fenetre extends JFrame implements Nettoyer {
 			this.moteur.setControleurTourne(this.controleurTourne);
 			this.moteur.setControleurDimension(this.controleurDimension);
 			this.moteur.setControleurEpaisseur(this.controleurEpaisseur);
-			succes=moteurAnalyseAndParcourt(this.moteur);
+			succes=this.moteurAnalyseAndParcourt(this.moteur,modeInterpreteur);
+			
 			this.controleurProgJava.addMoteur(this.moteur);
 		}
 		else if(modeInterpreteur){
+			
+			//this.moteur.getListeVariable();
+			this.moteur.setReader(reader);
+			//Moteur moteurInter = new Moteur(reader,tmp);
+			succes=this.moteurAnalyseAndParcourt(this.moteur,modeInterpreteur);
+			/*
 			ValueEnvironment tmp=this.moteur.getListeVariable();
 			Moteur moteurInter = new Moteur(reader,tmp);
-			succes=moteurAnalyseAndParcourt(moteurInter);
+			succes=this.moteurAnalyseAndParcourt(moteurInter);
 			this.controleurProgJava.addMoteur(moteurInter);
+			*/
 		}
 		return succes;
 	}
 	public boolean dessinerAvance(Trait adessiner) throws Exception {
-		if(fenetreDessin!=null && !Fenetre.isSortie(adessiner,this.fenetreDessin) ){
+		if(fenetreDessin!=null && !Fenetre.isSortie(adessiner,this.fenetreDessin.getSize()) ){
 			this.fenetreDessin.dessiner(adessiner);
 			this.position.setValeur(adessiner.fin.x +":"+adessiner.fin.y);
 			return true;
@@ -319,7 +366,6 @@ public class Fenetre extends JFrame implements Nettoyer {
 			return;
 		}
 		if(dimension.getHeight()<1 || dimension.getWidth()<1){
-			
 			JOptionPane.showMessageDialog(this,
 					"erreur de choix de dimension\n Height : "+dimension.getHeight()
 					+"\n Width : "+dimension.getWidth()
@@ -330,17 +376,19 @@ public class Fenetre extends JFrame implements Nettoyer {
 			this.fenetreDessin.setPreferredSize(dimension);
 			int x= (int)dimension.getHeight();
 			int y= (int)dimension.getWidth();
-			
 			this.dimension.setValeur(x+"x"+y);
+			this.fenetreDessin.repaint();
+			
 		}
 		if(this.fenetreDessin.isSortie()){
 			JOptionPane.showMessageDialog(this,
 					"Attention vous etes sortie des dimensions"
 					,"ERREUR ",JOptionPane.ERROR_MESSAGE);
 		}
+		this.validate();
 	}
 
-	public static boolean isSortie(Trait adessiner ,Canvas fenetre) throws Exception{
+	public static boolean isSortie(Trait adessiner ,Dimension fenetre) throws Exception{
 		if(adessiner==null || fenetre==null){
 			throw new Exception("Appel avec argument(s) null");
 		}

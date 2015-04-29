@@ -5,19 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-
-import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
 
 import affichage.Fenetre;
 
@@ -54,7 +45,7 @@ public class Compiler extends FichierCharger implements ActionListener {
 		this.compiler(java,jar);
 	}	
 	public void compiler(File java , File jar){	
-		try{			
+		try{
 			Runtime rt = Runtime.getRuntime();
 			
 			Process proc = rt.exec("javac -cp "+jar.getAbsolutePath() +" "+java.getAbsolutePath());
@@ -64,7 +55,7 @@ public class Compiler extends FichierCharger implements ActionListener {
 			BufferedReader stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
 
 			boolean uneErreur=false;
-			// read the output from the command
+			//  output de la commande
 			String erreur="";
 			
 			erreur=erreur+"Here is the standard output of the command:\n";
@@ -73,7 +64,7 @@ public class Compiler extends FichierCharger implements ActionListener {
 			    erreur=erreur+s+"\n";
 			    uneErreur=true;
 			}
-			// read any errors from the attempted command
+			// erreurs renvoyer par la commande
 			erreur=erreur+"Here is the standard error of the command (if any):\n";
 			while ((s = stdError.readLine()) != null) {
 				erreur=erreur+s+"\n";

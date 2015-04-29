@@ -1,6 +1,9 @@
+
 package moteur;
 
+import java.awt.Dimension;
 import java.io.Reader;
+import java.util.LinkedList;
 
 import moteur.expression.ProgramPrincipal;
 import controleur.ControleurExportToken;
@@ -16,7 +19,7 @@ public class Moteur {
 	private LookAhead1 look;
     private ValueEnvironment listeVariable;
 	private Parser parser;
-	private ProgramPrincipal ProgramPrincipal;
+	private LinkedList<ProgramPrincipal> programPrincipal;
 	
     public ValueEnvironment getListeVariable() {
 		return listeVariable;
@@ -24,7 +27,6 @@ public class Moteur {
 	public void setListeVariable(ValueEnvironment listeVariable) {
 		this.listeVariable = listeVariable;
 	}
-	
 	
 	public Moteur(Reader reader,boolean pinceau, int angle , String couleur , int epaisseur) throws Exception{
 		ValueEnvironment listeVariable= new ValueEnvironment(pinceau, angle, couleur, epaisseur);
@@ -40,23 +42,34 @@ public class Moteur {
         this.parser = new Parser(look);
 	}
 	public void setReader(Reader reader) throws Exception{
+		ControleurExportToken tmp=this.look.getControleurTokens();
 		this.lexer=new Lexer(reader);
         this.look = new LookAhead1(lexer);
         this.parser = new Parser(look);
+        this.setControleurListeToken(tmp);
 	}
 
 	public void analyseSynt() throws Exception{
 		if (this.parser==null){
 			throw new Exception("une analyse est essayer sur un Parseur absent");
 		}
-		this.ProgramPrincipal = parser.nontermCode();
-		
+		if(programPrincipal==null){
+			programPrincipal=new LinkedList<ProgramPrincipal>();
+		}
+		try {
+			this.programPrincipal.add(parser.nontermCode());
+		} catch (Exception e) {
+			this.look.getControleurTokens().echecParseur();
+			throw e;
+		}
+		this.look.getControleurTokens().succesParseur();
 	}
 	public void parcourtArbre() throws Exception{
-		if (this.ProgramPrincipal==null){
+		if (this.programPrincipal==null || this.programPrincipal.isEmpty()){
 			throw new Exception("un parcourt est essayer sur un prog absent");
 		}
-			ProgramPrincipal.run(listeVariable);
+		programPrincipal.getLast().run(listeVariable);
+		
 	}
 
 	public String getCouleur(){
@@ -86,7 +99,7 @@ public class Moteur {
 	}
 	public void setControleurListeToken(ControleurExportToken controleurListeToken) throws Exception {
 		if(look !=null){
-			this.look.setControleur(controleurListeToken);
+			this.look.setControleurTokens(controleurListeToken);
 		}
 		else{
 			throw new Exception("la methode setControleur a été appeler avec un Objet LOOK du Moteur null");
@@ -102,25 +115,43 @@ public class Moteur {
 
 	
 	public String getString(){
-		if(ProgramPrincipal==null){
+		if(programPrincipal==null){
 			return "";
 		}
-		return ProgramPrincipal.getString(listeVariable,2);
+		String tmp="\n\t\t"+"ValueEnvironment listeVariable = new ValueEnvironment(false,90,\"BLACK\",1);"
+				+ "\n\t\t"+"listeVariable.setModeSansFENETRE(true);";
+		for(ProgramPrincipal pro : programPrincipal){
+			tmp=tmp+pro.getString(listeVariable,2);
+		}
+		return tmp;
 	}
 	
-	public String getFirstString(String nomClasse) throws Exception{
-		if(ProgramPrincipal==null){
+	public String getFirstString(String nameClass) throws Exception{
+		if(programPrincipal==null){
 			//throw new Exception("attention impossible d'appeler methode GetFirstString sans appeler analyseSynt avant sur le moteur");
 			return"";
 		}
-		return ProgramPrincipal.getFistString(nomClasse);
+		if(nameClass==null || nameClass.length()<1){
+			throw new Exception("erreur sur choix du nom de la class");
+		}
+		String tmp = "import moteur.ValueEnvironment;\n"
+				+ "import moteur.instruction.*;\n"
+				/*+ "import moteur.instruction.Epaisseur;\n"
+				+ "import moteur.instruction.Avance;\n"
+				+ "import moteur.instruction.BasPinceau;\n"
+				+ "import moteur.instruction.HautPinceau;\n"
+				+ "import moteur.instruction.ChangeCouleur;\n"
+				+ "import moteur.instruction.Tourne;\n"*/
+				+ "public class "+nameClass+"{\n\tpublic static void main(String[] args) throws Exception {\n"
+		;
+		return tmp;
 	}
 	
 	public String getLastString(){
-		if(ProgramPrincipal==null){
+		if(programPrincipal==null){
 			return "";
 		}
-		return ProgramPrincipal.getLastString();
+		return ""+"\n}";
 	}
 	public static String stringRepeat(String chaine, int multiplicateur){
 		if (multiplicateur > 1) {
@@ -136,12 +167,5 @@ public class Moteur {
 		else{
 			return "";
 		}
-	}
-	
-	public ProgramPrincipal getProgramPrincipal() {
-		return ProgramPrincipal;
-	}
-	public void setProgramPrincipal(ProgramPrincipal programPrincipal) {
-		ProgramPrincipal = programPrincipal;
 	}
 }

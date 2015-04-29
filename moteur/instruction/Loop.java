@@ -50,14 +50,13 @@ public class Loop extends Instruction {
 		}
 		catch(Exception e){
 			e.printStackTrace();
-			System.out.println("erreur dans while du for de getString");
+			//System.out.println("erreur dans while du for de getString");
 		}
 		String tmp2=Moteur.stringRepeat("\t", tabulation);
 		String tmp3="ValueEnvironment listeVariable"+val+"= (ValueEnvironment) "+identiOld+".clone();\n"+tmp2;
 		
 		ValueEnvironment env2= (ValueEnvironment) env.clone();
 		String nomVariable="listeVariable".concat(""+val);
-		System.out.println(nomVariable);
 		env2.setNom(nomVariable);
 		return tmp3+"for"+ "( "+"int "+identi+" =0 ; "+identi+"<"+max+" ; "+identi+"++){\n\t"+tmp2+getInstruction().getString(env2,tabulation+1)+"\n"+tmp2+"}\n";
 	}

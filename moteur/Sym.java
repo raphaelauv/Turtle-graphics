@@ -4,6 +4,8 @@ public enum Sym {
 	
 	//#### SEMANTIQUE ####
 	CONCAT (";"), // point virgule
+	VIRGULEINTER (";"), // point virgule rajoute par le mode interpret
+	GO ("Go"), // pour aller chercher une position directement
     DEBUT ("Debut"),
     FIN ("Fin"),
     EOF (""), // end of file

@@ -1,6 +1,5 @@
 package moteur.instruction;
 
-import moteur.Moteur;
 import moteur.ValueEnvironment;
 import moteur.expression.Program;
 
@@ -26,7 +25,7 @@ public class Declaration extends Instruction {
 		
 	} 
 	public String getString(ValueEnvironment env, int tabulation) {
-		String tmp2=Moteur.stringRepeat("\t", tabulation);
+		//String tmp2=Moteur.stringRepeat("\t", tabulation);
 		if(varName!=null){
 			String tmp="int "+varName+";";
 			if(prog!=null){

@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 import moteur.Moteur;
-import moteur.instruction.Instruction;
 import affichage.Fenetre;
 import affichage.Nettoyer;
 
@@ -34,7 +33,6 @@ public class FichierProgJava implements ActionListener ,Nettoyer{
 			return;
 		}
 		String debut="";
-		
 			try {
 				debut=listeMoteurs.getFirst().getFirstString("test");
 			} catch (Exception e1) {

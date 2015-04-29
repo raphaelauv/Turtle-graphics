@@ -1,6 +1,5 @@
 package moteur.instruction;
 
-import moteur.Moteur;
 import moteur.ValueEnvironment;
 
 public class HautPinceau extends Instruction {
@@ -12,7 +11,7 @@ public class HautPinceau extends Instruction {
 	}
 	
 	public String getString(ValueEnvironment env, int tabulation) {
-		String tmp=Moteur.stringRepeat("\t", tabulation);
+		//String tmp=Moteur.stringRepeat("\t", tabulation);
 		
 		return "new HautPinceau().exec(listeVariable);";
 		

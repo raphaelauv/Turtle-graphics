@@ -30,24 +30,29 @@ public class FenetreDessin extends Canvas implements Nettoyer {
 	private Color couleurCurseur;
 
 	private VariableAfficher position;
+	private VariableAfficher angle;
 	
-	public FenetreDessin(VariableAfficher position) {
+	public FenetreDessin(VariableAfficher position,VariableAfficher angle) {
 		this.couleurCurseur=Color.black;
 		this.position=position;
+		this.angle=angle;
 		this.afficherCurseur=true;
 		this.setPreferredSize(new Dimension(400,400));
 		this.setSize(400,400);
 		this.setBackground(Color.WHITE);
+		this.nettoyer();
 	}
 
-	public Point getPointCurseur(){
+	private Point getPointCurseur(){
 		String position=this.position.getValeur();
         String [] valeurs=position.split(":");
 
         int x=Integer.parseInt(valeurs[0]);
-        
         int y=Integer.parseInt(valeurs[1]);
         return new Point(x,y);
+	}
+	private int getAngleCurseur(){
+		return Integer.parseInt(this.angle.getValeur());
 	}
 	
 	public void dessiner(Trait adessiner) {
@@ -72,9 +77,8 @@ public class FenetreDessin extends Canvas implements Nettoyer {
 		}
 		for (Trait adessiner : listeDesTraits) {
 			try {
-				nouvelleSortie=Fenetre.isSortie(adessiner, this);
+				nouvelleSortie=Fenetre.isSortie(adessiner, this.getSize());
 			} catch (Exception e1) {
-				
 			}
 			if (adessiner != null && adessiner.visible && !nouvelleSortie ) {
 				
@@ -98,13 +102,14 @@ public class FenetreDessin extends Canvas implements Nettoyer {
 		}
 		else{
 			this.isSortie=false;
-			if(this.afficherCurseur){
-				Point centre=this.getPointCurseur();
-				g2d.setStroke(new BasicStroke(1));
-				
-				g2d.setColor(this.couleurCurseur);			
-				g2d.drawOval(centre.x-10, (this.getHeight()-1)- centre.y-10, 20, 20);
-			}
+		}
+		if(this.afficherCurseur){
+			Point centre=this.getPointCurseur();
+			g2d.setStroke(new BasicStroke(1));
+			g2d.setColor(this.couleurCurseur);			
+			g2d.drawOval(centre.x-10, (this.getHeight()-1)- centre.y-10, 20, 20);
+			Trait marq =new Trait(10,1,"black",new Point(centre.x,centre.y),this.getAngleCurseur(),true);
+			g2d.drawLine(centre.x, (this.getHeight()-1)- centre.y,marq.getFin().x , (this.getHeight()-1)- marq.fin.y);
 		}
 	}
 	/**

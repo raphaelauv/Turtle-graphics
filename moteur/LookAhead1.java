@@ -7,7 +7,7 @@ class LookAhead1  {
     
     private Token current;
     private Lexer lexer;
-    private ControleurExportToken controleur;
+    private ControleurExportToken controleurTokens;
 
 	public LookAhead1(Lexer l) throws Exception {
 	lexer=l;
@@ -26,8 +26,8 @@ class LookAhead1  {
 	if (!check(s)) {
 	    throw new Exception("\nCan't eat "+s+" current being "+current);
 	}
-		if(controleur!=null){
-			controleur.ajouterToken(current);
+		if(controleurTokens!=null){
+			controleurTokens.ajouterToken(current);
 		}
         current=lexer.yylex();
     }
@@ -68,12 +68,12 @@ class LookAhead1  {
     public int getColumn(){
     	return current.column;
     }
-    public ControleurExportToken getControleur() {
-		return controleur;
+    public ControleurExportToken getControleurTokens() {
+		return controleurTokens;
 	}
 
-	public void setControleur(ControleurExportToken controleur) {
-		this.controleur = controleur;
+	public void setControleurTokens(ControleurExportToken controleur) {
+		this.controleurTokens = controleur;
 	}
 
 }

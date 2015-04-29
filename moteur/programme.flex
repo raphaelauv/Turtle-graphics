@@ -36,6 +36,7 @@ variable = [a-zA-Z][a-zA-Z0-9]*
    "Var"		{return  token(Sym.VAR,yyline, yycolumn);}
    "Couleur"	{return  token(Sym.COULEUR,yyline, yycolumn);}
    "Epaisseur"	{return  token(Sym.EPAISSEUR,yyline, yycolumn);}
+   "Go"			{return  token(Sym.GO,yyline, yycolumn);}
    "For"		{return  token(Sym.FOR,yyline, yycolumn);}
    "Faire"		{return  token(Sym.FAIRE,yyline, yycolumn);}
    "Avance"		{return  token(Sym.AVANCE,yyline, yycolumn);}

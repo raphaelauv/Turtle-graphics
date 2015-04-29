@@ -1,5 +1,6 @@
 package moteur;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.util.HashMap;
 
@@ -25,6 +26,7 @@ public class ValueEnvironment extends HashMap<String, Integer> {
 	private String nom;
 	private Point positionActuel;
 	
+	
 	public ValueEnvironment(boolean valPinceau , int angleActuel, String couleur , int epaisseur) {
 		super();
 		this.setModeSansFENETRE(false);
@@ -33,6 +35,7 @@ public class ValueEnvironment extends HashMap<String, Integer> {
 		this.couleur=couleur;
 		this.setTaille(epaisseur);
 		this.setPositionActuel(new Point(0,0));
+		
 	}
 	public ControleurPinceau getPinceau() {
 		return controleurPinceau;

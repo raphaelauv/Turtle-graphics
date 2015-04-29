@@ -1,6 +1,5 @@
 package controleur.GUI;
 
-import javax.swing.JOptionPane;
 import affichage.Fenetre;
 import affichage.Trait;
 

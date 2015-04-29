@@ -16,6 +16,7 @@ import moteur.instruction.Debut;
 import moteur.instruction.Declaration;
 import moteur.instruction.Epaisseur;
 import moteur.instruction.FaireTantQue;
+import moteur.instruction.Go;
 import moteur.instruction.HautPinceau;
 import moteur.instruction.Instruction;
 import moteur.instruction.Loop;
@@ -80,7 +81,7 @@ class Parser {
     }
     public boolean isNextInstruction() throws Exception{
     	if (reader.check(Sym.DEBUT) || reader.check(Sym.SI) || reader.check(Sym.EPAISSEUR)
-    			|| reader.check(Sym.VAR) || reader.check(Sym.TAILLE)
+    			|| reader.check(Sym.VAR) || reader.check(Sym.TAILLE) || reader.check(Sym.GO)
 				|| reader.check(Sym.TANTQUE) || reader.check(Sym.FAIRE)
 				|| reader.check(Sym.AVANCE) || reader.check(Sym.BASPINCEAU)
 				|| reader.check(Sym.HAUTPINCEAU) || reader.check(Sym.VARIABLE)
@@ -191,6 +192,7 @@ class Parser {
         else if (reader.check(Sym.TOURNE)) {
         	
         	reader.eat(Sym.TOURNE);
+        	isNextNumber("Tourne");
         	Expression a=this.nontermExp();
         	
         	return new Tourne(a);
@@ -198,6 +200,7 @@ class Parser {
         else if (reader.check(Sym.AVANCE)) {
         	
         	reader.eat(Sym.AVANCE);
+        	isNextNumber("Avance");
         	Expression a=this.nontermExp();
         	
         	return new Avance(a);
@@ -205,10 +208,22 @@ class Parser {
         else if (reader.check(Sym.TAILLE)) {
         	
         	reader.eat(Sym.TAILLE);
+        	isNextNumber("Taille");
         	Expression a=this.nontermExp();
+        	isNextNumber("le premier chiffre");
         	Expression b=this.nontermExp();
         	
         	return new Taille(a,b);
+        }
+        else if (reader.check(Sym.GO)) {
+        	
+        	reader.eat(Sym.GO);
+        	isNextNumber("Go");
+        	Expression a=this.nontermExp();
+        	isNextNumber("le premier chiffre");
+        	Expression b=this.nontermExp();
+        	
+        	return new Go(a,b);
         }
         
         else if (reader.check(Sym.COULEUR)) {
@@ -217,16 +232,13 @@ class Parser {
         	reader.eat(Sym.COULEUR);
         	
         	if (!reader.check(Sym.VARIABLE)){
-        		
         		throw new LexerException(reader.getLine(), reader.getColumn(), "attention il faut seulement un espace entre "
         				+ "Couleur et le nom de la couleur \n et non pas un "+reader.getStringSym());
-        	
         	}
         	String couleur =reader.getStringValue();        	
         	for(Couleurs e: Couleurs.values()){
         		if(couleur.equals(e.toString())){
         			reader.eat(Sym.VARIABLE);
-        			
         			return new ChangeCouleur(couleur);
         		}
         	}
@@ -240,7 +252,6 @@ class Parser {
         	if (!reader.check(Sym.VARIABLE) && !reader.check(Sym.INT) && !reader.check(Sym.LPAR)){
         		throw new LexerException(reader.getLine(), reader.getColumn(), "attention il faut seulement un espace entre "
         				+ "EPAISSEUR et la valeur de l epaisseur \n et non pas un "+reader.getStringSym());
-        	
         	}
         	Expression a=this.nontermExp();
         	
@@ -275,6 +286,12 @@ class Parser {
         */
     }
 
+    public void isNextNumber(String nameOperateur) throws LexerException{
+    	if (!reader.check(Sym.VARIABLE) && !reader.check(Sym.INT) && !reader.check(Sym.LPAR)){
+    		throw new LexerException(reader.getLine(), reader.getColumn(), "attention il faut seulement un espace entre "
+    				+nameOperateur+ " et la valeur \n et non pas un "+reader.getStringSym());
+    	}
+    }
     public Instruction nontermCondition() throws Exception{
     	
     	if(reader.check(Sym.SINON)){

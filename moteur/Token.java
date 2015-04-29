@@ -3,7 +3,7 @@ package moteur;
 public class Token {
     protected Sym symbol;
     protected int line;
-    protected int column;
+	protected int column;
     public Token(Sym s, int line , int column) {
     	
     	symbol=s;
@@ -17,7 +17,6 @@ public class Token {
     	return (t.symbol !=this.symbol);
     }
     public String toString(){
-    	
     	String tmp="";
     	tmp=tmp+this.symbol+"\t\t";
     	return tmp+"| Ligne : " +this.line + " \t\t| position : "+this.column ;
@@ -30,5 +29,12 @@ public class Token {
     public String getSpeudoCode(){
     	return this.symbol.getPseudoCode();
     }
+    
+    public int getLine() {
+		return line;
+	}
+	public void setLine(int line) {
+		this.line = line;
+	}
 }
 

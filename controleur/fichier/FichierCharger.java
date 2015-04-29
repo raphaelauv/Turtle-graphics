@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileReader;
 
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 

@@ -34,8 +34,6 @@ public class ControleurInterpreteur  implements ActionListener  {
 		boolean succes=true;
 		try {
 			succes=this.fenetre.dessiner(new StringReader(texte),true);
-			this.fenetre.pack();
-			this.fenetre.validate();
 		} catch (Exception e) {
 			 JOptionPane.showMessageDialog(fenetre,
         			 e.getMessage(),"ERREUR",JOptionPane.WARNING_MESSAGE);
