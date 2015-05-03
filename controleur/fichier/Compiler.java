@@ -93,7 +93,6 @@ public class Compiler extends FichierCharger implements ActionListener {
 					Runtime rt2 = Runtime.getRuntime();
 					String java2=java.getAbsolutePath();
 					java2=java2.substring(0, java2.length()-5);
-					System.out.println(java2);
 					Process proc2 = rt2.exec("java -cp "+jar.getAbsolutePath() +" "+java2);
 					
 					

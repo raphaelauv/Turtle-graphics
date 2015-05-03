@@ -2,28 +2,14 @@ package affichage;
 
 
 import java.awt.BorderLayout;
-import java.awt.Canvas;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Point;
-import java.awt.RenderingHints;
 import java.awt.ScrollPane;
-import java.awt.Scrollbar;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Reader;
 import java.util.LinkedList;
-
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -34,9 +20,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-
 import controleur.ControleurExportToken;
 import controleur.ControleurPositionCurseurCouleur;
 import controleur.EditionNettoyer;
@@ -368,26 +352,24 @@ public class Fenetre extends JFrame implements Nettoyer {
 		if(dimension.getHeight()<1 || dimension.getWidth()<1){
 			JOptionPane.showMessageDialog(this,
 					"erreur de choix de dimension\n Height : "+dimension.getHeight()
-					+"\n Width : "+dimension.getWidth()
-					
-					,"ERREUR ",JOptionPane.ERROR_MESSAGE);
+					+"<1\n Width : "+dimension.getWidth()+"<1","ERREUR ",JOptionPane.ERROR_MESSAGE);
 		}else{
-			this.fenetreDessin.setSize(dimension);
-			this.fenetreDessin.setPreferredSize(dimension);
 			int x= (int)dimension.getHeight();
 			int y= (int)dimension.getWidth();
 			this.dimension.setValeur(x+"x"+y);
+			this.fenetreDessin.setSize(dimension);
+			this.fenetreDessin.setPreferredSize(dimension);
 			this.fenetreDessin.repaint();
-			
 		}
 		if(this.fenetreDessin.isSortie()){
 			JOptionPane.showMessageDialog(this,
 					"Attention vous etes sortie des dimensions"
 					,"ERREUR ",JOptionPane.ERROR_MESSAGE);
 		}
+		//remet a zero le compte de sortie pour le futur
+		this.fenetreDessin.setSortie(false);
 		this.validate();
 	}
-
 	public static boolean isSortie(Trait adessiner ,Dimension fenetre) throws Exception{
 		if(adessiner==null || fenetre==null){
 			throw new Exception("Appel avec argument(s) null");
@@ -395,8 +377,10 @@ public class Fenetre extends JFrame implements Nettoyer {
 		if(adessiner.fin.x>fenetre.getWidth() ||adessiner.fin.x<0 || 
 				(fenetre.getHeight()-1)- adessiner.fin.y<0 || 
 				(fenetre.getHeight()-1)- adessiner.fin.y>fenetre.getHeight()){
+			
 			return true;
 		}
+		
 		return false;
 	}
 	public FenetreDessin getFenetreDessin() {

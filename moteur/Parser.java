@@ -1,3 +1,4 @@
+
 package moteur;
 import moteur.expression.Difference;
 import moteur.expression.Division;
@@ -33,7 +34,6 @@ class Parser {
     protected LookAhead1 reader;
     public Parser(LookAhead1 r) {
 	   reader=r;
-	   
     }
 	public ProgramPrincipal nontermCode() throws Exception {
 		Instruction instruction=null;
@@ -145,13 +145,9 @@ class Parser {
     	else if (reader.check(Sym.VARIABLE)) {
         	
         	String nomVariable=reader.getStringValue();
-        	
         	reader.eat(Sym.VARIABLE);
-        	
         	reader.eat(Sym.EQ);
-        	
         	Expression ex =this.nontermExp();
-        	
         	return new Assignment(nomVariable, ex);
         }
     	 else if (reader.check(Sym.FOR)) {
@@ -350,11 +346,8 @@ class Parser {
     public Expression nontermExp() throws Exception {
 		
     	if (reader.check(Sym.INT)) {
-    		
     		int val=reader.getIntValue();
-			
 			reader.eat(Sym.INT);
-				
 			return this.nonTermExpSuite(new Int(val));
 			
 		}
@@ -391,7 +384,6 @@ class Parser {
     		return first;
     	}
     }
-
 	private Expression operateur(Expression first) throws Exception {
 		if (reader.check(Sym.PLUS)) {
 			reader.eat(Sym.PLUS);

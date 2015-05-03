@@ -17,8 +17,6 @@ public class Trait {
 		this.debut=debut;
 		this.fin=fin;
 		this.visible=visible;
-		//System.out.println(debut);
-		//System.out.println(fin);
 		if(debut.x==0){
 			this.angle=90;
 		}

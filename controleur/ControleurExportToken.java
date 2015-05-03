@@ -3,16 +3,9 @@ package controleur;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
-
 import javax.swing.JOptionPane;
-
-
-
-
-
 import moteur.IntToken;
 import moteur.Moteur;
-import moteur.Sym;
 import moteur.Token;
 import moteur.VarToken;
 import controleur.fichier.Enregistrer;

@@ -28,7 +28,6 @@ public class FenetreDessin extends Canvas implements Nettoyer {
 	private Random rnd = new Random();
 	private boolean afficherCurseur;
 	private Color couleurCurseur;
-
 	private VariableAfficher position;
 	private VariableAfficher angle;
 	
@@ -69,8 +68,8 @@ public class FenetreDessin extends Canvas implements Nettoyer {
 
 	
 	public void paint(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
 		
+		Graphics2D g2d = (Graphics2D) g;
 		boolean nouvelleSortie=false;
 		if(listeDesTraits==null){
 			return;
@@ -79,6 +78,9 @@ public class FenetreDessin extends Canvas implements Nettoyer {
 			try {
 				nouvelleSortie=Fenetre.isSortie(adessiner, this.getSize());
 			} catch (Exception e1) {
+			}
+			if(nouvelleSortie){
+				this.isSortie=true;
 			}
 			if (adessiner != null && adessiner.visible && !nouvelleSortie ) {
 				
@@ -96,13 +98,6 @@ public class FenetreDessin extends Canvas implements Nettoyer {
 			}
 		}
 		
-		//Pour prevenir d une sortie pendant un changement de taille de l image
-		if(nouvelleSortie){
-			this.isSortie=true;
-		}
-		else{
-			this.isSortie=false;
-		}
 		if(this.afficherCurseur){
 			Point centre=this.getPointCurseur();
 			g2d.setStroke(new BasicStroke(1));
@@ -148,7 +143,6 @@ public class FenetreDessin extends Canvas implements Nettoyer {
 			}else{
 				try{
 					Field field = tmp.getClass().getDeclaredField(adessiner.couleur);
-					// System.out.println("field" +field.toString());
 					tmp = (Color) field.get(tmp);	
 				}
 				catch(Exception e){
@@ -167,7 +161,6 @@ public class FenetreDessin extends Canvas implements Nettoyer {
 	public boolean isAfficherCurseur() {
 		return afficherCurseur;
 	}
-
 	public void setAfficherCurseur(boolean afficherCurseur) {
 		this.afficherCurseur = afficherCurseur;
 	}
