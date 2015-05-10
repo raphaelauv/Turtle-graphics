@@ -16,9 +16,9 @@ public class Loop extends Instruction {
 	throws Exception {
 		
 		int max=this.exp.eval(env);
-		ValueEnvironment env2= (ValueEnvironment) env.clone();
+		//ValueEnvironment env2= (ValueEnvironment) env.clone();
 		for (int i =0 ; i<max; i++){
-			this.getInstruction().exec(env2);
+			this.getInstruction().exec(env);
 		}
 		
 		/*
