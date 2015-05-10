@@ -5,12 +5,17 @@ import java.awt.Point;
 import affichage.Trait;
 import moteur.ValueEnvironment;
 import moteur.expression.Expression;
+import moteur.expression.Int;
 
 public class Go extends Avance{
 	private Expression e2;
 	public Go(Expression e,Expression e2) {
 		super(e);
 		this.e2=e2;
+	}
+	public Go(int e , int e2){
+		super(new Int(e));
+		this.e2=new Int(e2);
 	}
 	
 	public void exec(ValueEnvironment env)throws Exception {

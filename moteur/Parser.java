@@ -41,6 +41,7 @@ class Parser {
 			instruction = nontermInstruction();
 		}
         reader.eat(Sym.EOF);
+        
         return new ProgramPrincipal(instruction);
     }
 

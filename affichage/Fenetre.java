@@ -80,6 +80,7 @@ public class Fenetre extends JFrame implements Nettoyer {
 	}
 
 	public Fenetre() {
+		
 		super("Dessin ADS4");
 		this.afficherSortie=false;
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

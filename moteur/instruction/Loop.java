@@ -53,7 +53,7 @@ public class Loop extends Instruction {
 			//System.out.println("erreur dans while du for de getString");
 		}
 		String tmp2=Moteur.stringRepeat("\t", tabulation);
-		String tmp3="ValueEnvironment listeVariable"+val+"= (ValueEnvironment) "+identiOld+".clone();\n"+tmp2;
+		String tmp3="//ValueEnvironment listeVariable"+val+"= (ValueEnvironment) "+identiOld+".clone();\n"+tmp2;
 		
 		ValueEnvironment env2= (ValueEnvironment) env.clone();
 		String nomVariable="listeVariable".concat(""+val);

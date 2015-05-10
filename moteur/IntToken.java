@@ -3,6 +3,7 @@ package moteur;
 
 public class IntToken extends Token {
     private int value;
+   
 	
 	public IntToken(Sym s ,int line , int column, int v){
 		

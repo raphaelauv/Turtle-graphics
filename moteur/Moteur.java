@@ -1,7 +1,6 @@
 
 package moteur;
 
-import java.awt.Dimension;
 import java.io.Reader;
 import java.util.LinkedList;
 

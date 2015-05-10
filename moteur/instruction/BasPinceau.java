@@ -11,6 +11,5 @@ public class BasPinceau extends Instruction {
 	public String getString(ValueEnvironment env, int tabulation) {
 		return "new BasPinceau().exec(listeVariable);";
 		
-	}
-	
+	}	
 }
