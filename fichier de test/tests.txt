@@ -1,0 +1,205 @@
+Debut
+
+	Go 250 250 	 ;BasPiceau 
+	BasPinceau 	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+	Couleur aleatoire 	 ;
+	Epaisseur 10 	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+	Debut 
+		For 10 
+		Faire 
+		Debut 
+			Tourne 10 ;
+			Avance 10 ;
+		Fin ;
+	Fin ;
+	 ;
+Fin

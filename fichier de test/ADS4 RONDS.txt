@@ -1,0 +1,26 @@
+Debut
+Couleur aleatoire;
+Epaisseur 2;
+Avance 200;
+Tourne 0-90;
+Avance 200;
+BasPinceau;
+For 360 Faire
+	Debut
+	Tourne 0-30;
+	Avance 15;
+	Fin
+	;
+	HautPinceau;
+	Avance 150;
+	BasPinceau;
+
+For 360 Faire
+	Debut
+	Tourne 0+30;
+	Avance 15;
+	Fin
+	;
+Epaisseur 10;
+Avance 10;
+Fin

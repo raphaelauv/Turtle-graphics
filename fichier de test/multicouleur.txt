@@ -1,0 +1,22 @@
+Var angle=0-90;
+Var n=399;
+Debut
+	Epaisseur 1; // le choix de la taille d'epaisseur du Pinceau
+	BasPinceau; // pour activer le pinceau
+	Couleur aleatoire; // pour choisir la couleur du pinceau
+	Taille 400 400; // la taille de l'image	
+	For 399 Faire{
+Debut
+		Avance n;
+		Tourne angle;
+		Avance n;
+Tourne angle;
+			Avance n;
+			Tourne angle;
+			Avance n;
+			Tourne angle;
+			n=n-1;
+		Fin
+	}
+	;
+Fin

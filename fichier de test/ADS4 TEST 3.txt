@@ -1,0 +1,54 @@
+Var toto;
+Debut
+	Var coco=1;
+	toto=1;
+	Si coco Alors
+		Debut
+			Couleur RED;
+			Couleur YELLOW;
+			Couleur YELLOW;
+		Fin
+	;
+	Si coco Alors
+		Couleur YELLOW
+	;
+	Si coco Alors
+			Couleur YELLOW
+	Sinon si toto Alors
+			Couleur RED
+	Sinon si toto Alors
+		Debut
+			Couleur RED;
+			Couleur YELLOW;
+			Couleur YELLOW;
+		Fin
+	Sinon
+		Debut
+			Tourne 18;
+			Couleur YELLOW;
+		Fin
+	;
+	toto=30;
+	BasPinceau;
+	Avance 100;
+	Tourne 0-90;	
+	Couleur GREEN;
+	Avance 300;
+	Tant que coco Faire
+		Debut
+			Couleur YELLOW;
+			Avance 10;
+			Tourne 10;
+			toto =toto-1;
+			coco=coco-1;
+			Si toto Alors
+				Avance 1
+			Sinon 
+				Debut
+					Couleur RED;
+					Couleur YELLOW;
+				Fin
+				;
+		Fin
+		;
+Fin

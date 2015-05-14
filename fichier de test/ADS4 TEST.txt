@@ -1,0 +1,38 @@
+Debut
+	BasPinceau;
+	Tourne 0-90;
+	Var vari=10;
+	Var vava=5;
+	Couleur YELLOW;
+	Si 1 Alors
+		Debut//coco
+		Couleur YELLOW;
+		Couleur YELLOW;
+		Couleur YELLOW;
+		Fin
+	Sinon si 2 Alors
+		Debut
+		For vari Faire{
+			Avance 100
+		};
+		Tant que vari Faire {
+			vari=vari-1		
+		};
+		Faire{vava=vava-1} Tant que vava;
+		Fin
+		
+		
+	Sinon si 3 Alors
+		Debut
+		Couleur YELLOW;
+		Couleur YELLOW;
+		Couleur YELLOW;
+		Fin
+	Sinon
+		Debut
+		Couleur YELLOW;
+		Couleur YELLOW;
+		Couleur YELLOW;
+		Fin
+	;
+Fin
